@@ -63,6 +63,16 @@
         android:background="#263238"
         style="@style/Widget.AppCompat.Button.Colored"
         />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dashboard_btn_logout"
+        android:layout_marginTop="20dp"
+        android:text="To Database"
+        android:id="@+id/dashboard_btn_database"
+        android:background="#263238"
+        style="@style/Widget.AppCompat.Button.Colored"
+        />
 
 
 

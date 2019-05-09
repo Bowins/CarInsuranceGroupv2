@@ -24,6 +24,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
     private EditText input_new_password;
     private Button btnChangePass, btnLogout;
     private RelativeLayout activity_dashboard;
+    private Button btnDatabase;
 
     private FirebaseAuth auth;
 
@@ -38,7 +39,9 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         btnChangePass = (Button)findViewById(R.id.dashboard_btn_change_pass);
         btnLogout = (Button)findViewById(R.id.dashboard_btn_logout);
         activity_dashboard = (RelativeLayout)findViewById(R.id.activity_dash_board);
+        btnDatabase = (Button) findViewById(R.id.dashboard_btn_database);
 
+        btnDatabase.setOnClickListener(this);
         btnChangePass.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
 
@@ -57,6 +60,11 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
             changePassword(input_new_password.getText().toString());
         else if(view.getId() == R.id.dashboard_btn_logout)
             logoutUser();
+        else if (view.getId() == R.id.dashboard_btn_database)
+        {
+            startActivity(new Intent(this, DatabaseActivity.class));
+            finish();
+        }
     }
 
     private void logoutUser() {
