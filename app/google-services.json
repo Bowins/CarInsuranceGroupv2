@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "545918612686",
+    "firebase_url": "https://softwareengineeringcrashapp.firebaseio.com",
+    "project_id": "softwareengineeringcrashapp",
+    "storage_bucket": "softwareengineeringcrashapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:545918612686:android:813e8f3a9f698dd0",
+        "android_client_info": {
+          "package_name": "com.group2.carinsuranceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "545918612686-c4cb1l1aqi6gl15bkiapcgn08td5nvbe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.group2.carinsuranceapp",
+            "certificate_hash": "d201c5febcc7239daa43a4b2603857c75c7379d1"
+          }
+        },
+        {
+          "client_id": "545918612686-iq1a14caomdhngndk9vqe3dmts68dha8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMVk7Q2JIEWhGh9IRhRz4oUB5-SmGu-fo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "545918612686-iq1a14caomdhngndk9vqe3dmts68dha8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
