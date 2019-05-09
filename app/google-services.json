@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "545918612686-csb6voda958faesl2pmtic1utqt0fv9f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.group2.carinsuranceapp",
+            "certificate_hash": "ffb9abd72a1cc6f2d86b7209428af13c57c06b83"
+          }
+        },
+        {
           "client_id": "545918612686-c4cb1l1aqi6gl15bkiapcgn08td5nvbe.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
