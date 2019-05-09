@@ -61,7 +61,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
 
     private void logoutUser() {
         auth.signOut();
-        if(auth.getCurrentUser() != null){
+        if(auth.getCurrentUser() == null){
             startActivity(new Intent(Dashboard.this,MainActivity.class));
             finish();
         }

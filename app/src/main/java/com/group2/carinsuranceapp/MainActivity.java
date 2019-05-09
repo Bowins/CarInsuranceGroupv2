@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Check already session, if okay go dashboard.
 
-        //if(auth.getCurrentUser() != null)
-          //  startActivity(new Intent(MainActivity.this,Dashboard.class));
+        if(auth.getCurrentUser() != null)
+            startActivity(new Intent(MainActivity.this,Dashboard.class));
     }
 
 
