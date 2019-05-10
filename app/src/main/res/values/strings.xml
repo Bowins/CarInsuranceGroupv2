@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">CarInsuranceApp</string>
+    <string name="action_settings">Settings</string>
+
+    <!--menu-->
+    <string name="log_incident">Log new incident</string>
+    <string name="view_incidents">View past incidents</string>
+    <string name="my_information">My information</string>
+    <string name="my_insurance_info">My insurance information</string>
+    <string name="map">Map</string>
+    <string name="logout">Log out</string>
+
+
+    <!--Navigation drawer-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
 </resources>

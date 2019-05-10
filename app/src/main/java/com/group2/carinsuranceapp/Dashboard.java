@@ -28,6 +28,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
 
     private FirebaseAuth auth;
 
+    //TODO change to frangment
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

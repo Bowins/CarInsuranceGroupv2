@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <item
+        android:id="@+id/m_logIncident"
+        android:title="@string/log_incident" />
+    <item
+        android:id="@+id/m_pastIncidents"
+        android:title="@string/view_incidents" />
+    <item
+        android:id="@+id/m_myInfo"
+        android:title="@string/my_information" />
+    <item
+        android:id="@+id/m_myIncuranceInfo"
+        android:title="@string/my_insurance_info" />
+    <item
+        android:id="@+id/m_map"
+        android:title="@string/map" />
+    <item
+        android:id="@+id/m_logOut"
+        android:title="@string/logout" />
+</menu>
