@@ -27,10 +27,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     TextView btnLogin,btnForgotPass;
     EditText input_email,input_pass;
     RelativeLayout activity_sign_up;
-    private String emailRegex = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
     private String passwordRegex ="^.{6,}";
     private FirebaseAuth auth;
-    Snackbar snackbar;
+    Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +68,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         //TODO add error checks
         else if(view.getId() == R.id.signup_btn_register) {
             if(input_email.getText().toString().equals("") || input_pass.getText().toString().equals("")) {
-                Toast.makeText(getApplicationContext(),"Input fields empty",Toast.LENGTH_SHORT).show();
-            } else if(!input_email.getText().toString().matches(emailRegex)) {
-                Toast.makeText(getApplicationContext(),"Email not acceptable",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Input fields empty",Toast.LENGTH_LONG).show();
             } else if(!input_pass.getText().toString().matches(passwordRegex)){
-                Toast.makeText(getApplicationContext(),"Password is too short",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Password has to be 6 or more characters",Toast.LENGTH_LONG).show();
             }
             else{signUpUser(input_email.getText().toString(),input_pass.getText().toString());}
 
@@ -88,12 +85,12 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(!task.isSuccessful())
                         {
-                            snackbar = Snackbar.make(findViewById(R.id.activity_sign_up),"Error: "+task.getException(),Snackbar.LENGTH_SHORT);
-                            snackbar.show();
+                            toast = Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_LONG);
+                            toast.show();
                         }
                         else{
-                            snackbar = Snackbar.make(findViewById(R.id.activity_sign_up),"Registration Successful: "+task.getException(),Snackbar.LENGTH_SHORT);
-                            snackbar.show();
+                            toast = Toast.makeText(getApplicationContext(),"Registration Successful",Toast.LENGTH_LONG);
+                            toast.show();
 
 
                             startActivity(new Intent(SignUp.this,LoggedInMainActivity.class));

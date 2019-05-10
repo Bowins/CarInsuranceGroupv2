@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RelativeLayout activity_main;
 
     private FirebaseAuth auth;
+    Snackbar snackbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,26 +67,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if(view.getId() == R.id.login_btn_login){
             if(!input_email.getText().toString().equals("") && !input_password.getText().toString().equals("") ){
-            loginUser(input_email.getText().toString(),input_password.getText().toString());}
+            loginUser(input_email.getText().toString(),input_password.getText().toString()); }
             else{
-                Toast.makeText(getApplicationContext(),"Input fields empty",Toast.LENGTH_SHORT).show();
+              Toast.makeText(getApplicationContext(),"Input fields empty",Toast.LENGTH_SHORT).show();
             }
         }
 
     }
 
-    private void loginUser(String email, final String password) {
+    private void loginUser(final String email, final String password) {
         auth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(!task.isSuccessful())
                         {
-                            if(password.length() < 6)
-                            {
-                                Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_main),"Password length must be over 6", Snackbar.LENGTH_SHORT);
-                                snackBar.show();
-                            }
+                            snackbar = Snackbar.make(findViewById(R.id.activity_main),task.getException().getMessage(),Snackbar.LENGTH_LONG);
+                            snackbar.show();
+
                         }
                         else{
                             startActivity(new Intent(MainActivity.this, LoggedInMainActivity.class));
