@@ -9,12 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Fragment_Database"></activity>
-        <activity android:name=".SignUp" />
+        <activity android:name=".SignUp"
+            android:windowSoftInputMode="stateHidden"/> <!--hides keyboard on load-->
         <activity android:name=".ForgotPassword" />
-        <activity android:name=".Fragment_Dashboard" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".LoggedInMainActivity">
+        <activity android:name=".LoggedInMainActivity" />
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="stateHidden"> <!--hides keyboard on load-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Check already session, if okay go dashboard.
 
         if(auth.getCurrentUser() != null)
-            startActivity(new Intent(MainActivity.this, Fragment_Dashboard.class));
+            startActivity(new Intent(MainActivity.this, LoggedInMainActivity.class));
     }
 
 
@@ -63,13 +64,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             finish();
         }
         else if(view.getId() == R.id.login_btn_login){
-            loginUser(input_email.getText().toString(),input_password.getText().toString());
+            if(!input_email.getText().toString().equals("") && !input_password.getText().toString().equals("") ){
+            loginUser(input_email.getText().toString(),input_password.getText().toString());}
+            else{
+                Toast.makeText(getApplicationContext(),"Input fields empty",Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
 
     private void loginUser(String email, final String password) {
-00        auth.signInWithEmailAndPassword(email,password)
+        auth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
