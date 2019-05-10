@@ -13,7 +13,8 @@
         <activity android:name=".SignUp" />
         <activity android:name=".ForgotPassword" />
         <activity android:name=".Fragment_Dashboard" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" />
+        <activity android:name=".LoggedInMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
