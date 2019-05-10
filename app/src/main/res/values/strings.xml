@@ -33,4 +33,5 @@
 
     <!--Show Incident-->
     <string name="incident_name">Random incident</string>
+    <string name="title_activity_map">Map</string>
 </resources>

@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RelativeLayout activity_main;
 
     private FirebaseAuth auth;
-    Snackbar snackbar;
+    Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +82,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(!task.isSuccessful())
                         {
-                            snackbar = Snackbar.make(findViewById(R.id.activity_main),task.getException().getMessage(),Snackbar.LENGTH_LONG);
-                            snackbar.show();
+                            toast = Toast.makeText(getApplicationContext(),task.getException().getMessage(),Snackbar.LENGTH_LONG);
+                            toast.show();
 
                         }
                         else{
