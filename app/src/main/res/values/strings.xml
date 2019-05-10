@@ -9,6 +9,7 @@
     <string name="my_insurance_info">My insurance information</string>
     <string name="map">Map</string>
     <string name="logout">Log out</string>
+    <string name="dashboard">Dashboard</string>
 
 
     <!--Navigation drawer-->
@@ -16,4 +17,20 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
 
+    <!--Buttons-->
+    <string name="button_submit">Submit</string>
+
+    <!--Log Incident-->
+    <string name="text_incident_date">Date</string>
+    <string name="text_incident_description">Describe the incident</string>
+    <string name="text_incident_location">Incident_location // don\'t know how to do this yet :)</string>
+
+    <!--My Insurance info-->
+    <string name="add_car_button">Add CAr</string>
+
+    <!--Add new car-->
+    <string name="add_car">Add new car</string>
+
+    <!--Show Incident-->
+    <string name="incident_name">Random incident</string>
 </resources>

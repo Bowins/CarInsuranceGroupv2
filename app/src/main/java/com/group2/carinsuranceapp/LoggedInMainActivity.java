@@ -30,21 +30,22 @@ public class LoggedInMainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         //Fab takes user to "Log new incident"
+        //TODO leave fab or make a normal button?
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "New Incident", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                //TODO add LogNewIncident
-                /*Fragment incident = new LogNewIncident();
+
+                Fragment incident = new Fragment_LogNewIncident();
 
                 FragmentManager incidentManager = getSupportFragmentManager();
                 FragmentTransaction incidentTransaction = incidentManager.beginTransaction();
 
                 incidentTransaction.replace(R.id.screen,incident);
                 incidentTransaction.commit();
-                */
+
             }
         });
 
@@ -61,15 +62,14 @@ public class LoggedInMainActivity extends AppCompatActivity
 
 
         //setting first fragment
-        //TODO Change the first fragment on login
-        /*
-        Fragment fragment = new Map();
+
+        Fragment fragment = new Dashboard();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         fragmentTransaction.replace(R.id.screen,fragment);
-        fragmentTransaction.commit();*/
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -113,25 +113,28 @@ public class LoggedInMainActivity extends AppCompatActivity
         //field to hold current fragment
         Fragment fragment = null;
 
-        //TODO Add all the activities for the menu
-        /*
         //either assigns fragment or logs out
         if (id == R.id.m_logIncident) {
-            fragment = new LogNewIncident();
+            fragment = new Fragment_LogNewIncident();
         } else if (id == R.id.m_pastIncidents) {
-            fragment = new ViewPastIncidents();
+            fragment = new Fragment_ViewAllPastIncidents();
         } else if (id == R.id.m_myInfo) {
-            fragment = new MyInformation();
+            fragment = new Fragment_MyInformation();
         } else if (id == R.id.m_myIncuranceInfo) {
-            fragment = new MyInsuranceInfo();
-        } else if (id == R.id.m_logOut) {
-            Intent intent = new Intent(LoggedInMainActivity.this,Main.class);
-            startActivity(intent);
+            fragment = new Fragment_MyInsuranceInfo();
         } else if (id == R.id.m_map) {
-            fragment = new Map();
+            fragment = new Fragment_Map();
+        }else if (id == R.id.m_dashboard) {
+            fragment = new Dashboard();
         }
+        //TODO fix! does not allow to return to MainActivity
+        /*
+        else if (id == R.id.m_logOut) {
+            Intent intent = new Intent(LoggedInMainActivity.this,MainActivity.class);
+            startActivity(intent);
+        }
+*/
 
-        */
         //if didn't sign out change the view fragment
         if(fragment != null){
 
