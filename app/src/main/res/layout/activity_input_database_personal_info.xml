@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/text_enter_foremane"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_enter_forename" />
+
+        <EditText
+            android:id="@+id/field_enter_forename"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/text_enter_surname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_enter_surname" />
+
+        <EditText
+            android:id="@+id/field_enter_surname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/text_enter_date_of_birth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_enter_date_of_birth" />
+
+        <EditText
+            android:id="@+id/field_enter_date_of_birth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="date" />
+
+        <RadioGroup
+            android:id="@+id/radio_button_group_sex"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:id="@+id/radio_button_male"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_male" />
+
+            <RadioButton
+                android:id="@+id/radio_button_female"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_female" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/b_signup_next"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_next" />
+
+    </LinearLayout>
+</LinearLayout>

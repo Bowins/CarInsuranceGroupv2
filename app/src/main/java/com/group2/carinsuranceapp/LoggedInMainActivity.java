@@ -1,5 +1,6 @@
 package com.group2.carinsuranceapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -12,12 +13,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class LoggedInMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +32,9 @@ public class LoggedInMainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        auth = FirebaseAuth.getInstance();
+
         //Fab takes user to "Log new incident"
-        //TODO leave fab or make a normal button?
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,9 +63,6 @@ public class LoggedInMainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
-        //setting first fragment
 
         Fragment fragment = new Fragment_Dashboard();
 
@@ -124,13 +128,14 @@ public class LoggedInMainActivity extends AppCompatActivity
         }else if (id == R.id.m_dashboard) {
             fragment = new Fragment_Dashboard();
         }
-        //TODO fix! does not allow to return to MainActivity
-        /*
         else if (id == R.id.m_logOut) {
-            Intent intent = new Intent(LoggedInMainActivity.this,MainActivity.class);
-            startActivity(intent);
+            auth.signOut();
+            if(auth.getCurrentUser() == null){
+                startActivity(new Intent(LoggedInMainActivity.this,MainActivity.class));
+
+            }
         }
-*/
+
 
         //if didn't sign out change the view fragment
         if(fragment != null){

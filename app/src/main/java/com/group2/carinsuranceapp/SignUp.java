@@ -1,13 +1,10 @@
 package com.group2.carinsuranceapp;
 
 import android.content.Intent;
-import android.inputmethodservice.Keyboard;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -19,8 +16,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.w3c.dom.Text;
-
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
     Button btnSignup;
@@ -30,6 +25,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     private String passwordRegex ="^.{6,}";
     private FirebaseAuth auth;
     Toast toast;
+    private static final int FRAGMENT = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +88,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                             toast = Toast.makeText(getApplicationContext(),"Registration Successful",Toast.LENGTH_LONG);
                             toast.show();
 
-
-                            startActivity(new Intent(SignUp.this,LoggedInMainActivity.class));
+                            startActivity(new Intent(SignUp.this, DatabaseInputPersonalInfoActivity.class));
                         }
                     }
                 });

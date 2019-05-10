@@ -9,8 +9,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class Fragment_MyInsuranceInfo extends Fragment {
+
+    private TextView carMake;
+    private TextView carModel;
+    private TextView carRegNum;
+    private Button addCar;
 
     @Nullable
     @Override
@@ -21,6 +28,22 @@ public class Fragment_MyInsuranceInfo extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        carMake = view.findViewById(R.id.text_car_make_insurance_info_changable);
+        carModel= view.findViewById(R.id.text_car_model_insurance_info_changeable);
+        carRegNum= view.findViewById(R.id.text_car_reg_num_insurance_info_changeable);
+
+
+
+
+
+
+
+
+
+
+
 
         view.findViewById(R.id.b_add_car).setOnClickListener(new View.OnClickListener() {
             @Override

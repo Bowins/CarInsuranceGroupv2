@@ -64,33 +64,6 @@ public class Fragment_Dashboard extends Fragment implements View.OnClickListener
             txtWelcome.setText("Welcome, "+auth.getCurrentUser().getEmail());
     }
 
-    //-----------------things to transfer up
-    /*@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
-
-        //View
-        txtWelcome = (TextView)findViewById(R.id.dashboard_welcome);
-        input_new_password = (EditText)findViewById(R.id.dashboard_new_password);
-        btnChangePass = (Button)findViewById(R.id.dashboard_btn_change_pass);
-        btnLogout = (Button)findViewById(R.id.dashboard_btn_logout);
-        activity_dashboard = (RelativeLayout)findViewById(R.id.activity_dash_board);
-        btnDatabase = (Button) findViewById(R.id.dashboard_btn_database);
-
-        btnDatabase.setOnClickListener(this);
-        btnChangePass.setOnClickListener(this);
-        btnLogout.setOnClickListener(this);
-
-        //init Firebase
-
-        auth = FirebaseAuth.getInstance();
-
-        //Session Check
-        if(auth.getCurrentUser() != null)
-            txtWelcome.setText("Welcome, "+auth.getCurrentUser().getEmail());
-    }
-*/
     @Override
     public void onClick(View view){
         if(view.getId() == R.id.dashboard_btn_change_pass)
@@ -111,7 +84,6 @@ public class Fragment_Dashboard extends Fragment implements View.OnClickListener
         }
     }
 
-    //TODO fix does not allow to log out
     private void logoutUser() {
         auth.signOut();
         if(auth.getCurrentUser() == null){

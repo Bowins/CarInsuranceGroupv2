@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text_car_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="@string/text_car_info" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_input_car_model"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_input_car_model" />
+
+        <EditText
+            android:id="@+id/field_input_car_model"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/text_input_car_make"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_input_car_make" />
+
+        <EditText
+            android:id="@+id/field_input_car_make"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/text_input_car_registration_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_input_car_registration_num" />
+
+        <EditText
+            android:id="@+id/field_input_car_reg_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button_signup_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_submit" />
+    </LinearLayout>
+
+</LinearLayout>

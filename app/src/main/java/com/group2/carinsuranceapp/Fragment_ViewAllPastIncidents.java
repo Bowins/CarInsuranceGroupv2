@@ -9,8 +9,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 public class Fragment_ViewAllPastIncidents extends Fragment {
+
+   private ListView allIncidentsListView;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -20,6 +24,14 @@ public class Fragment_ViewAllPastIncidents extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        allIncidentsListView = view.findViewById(R.id.past_incidents_list_view);
+
+
+
+
+
+
 
         view.findViewById(R.id.b_rand_inc).setOnClickListener(new View.OnClickListener() {
             @Override

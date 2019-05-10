@@ -42,6 +42,21 @@
         tools:targetApi="o" />
 
     <TextView
+        android:id="@+id/text_incident_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_incident_time" />
+
+    <EditText
+        android:id="@+id/field_incident_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="time"
+        tools:targetApi="o" />
+
+    <TextView
         android:id="@+id/text_incident_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

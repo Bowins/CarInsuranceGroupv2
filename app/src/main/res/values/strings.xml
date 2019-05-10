@@ -22,6 +22,7 @@
 
     <!--Log Incident-->
     <string name="text_incident_date">Date</string>
+    <string name="text_incident_time">Time</string>
     <string name="text_incident_description">Describe the incident</string>
     <string name="text_incident_location">Incident_location // don\'t know how to do this yet :)</string>
 
@@ -34,4 +35,19 @@
     <!--Show Incident-->
     <string name="incident_name">Random incident</string>
     <string name="title_activity_map">Map</string>
+
+    <!--input database personal info-->
+    <string name="text_enter_forename">First name</string>
+    <string name="text_enter_surname">Last name</string>
+    <string name="text_enter_date_of_birth">Date of birth DD/MM/YYYY</string>
+    <string name="button_male">Male</string>
+    <string name="button_female">Female</string>
+    <string name="button_next">Next</string>
+
+    <!--input database insurance info-->
+    <string name="text_car_info">Input car information</string>
+    <string name="text_input_car_model">Model</string>
+    <string name="text_input_car_make">Make</string>
+    <string name="text_input_car_registration_num">Registration number</string>
+    <string name="button_edit">Edit</string>
 </resources>
