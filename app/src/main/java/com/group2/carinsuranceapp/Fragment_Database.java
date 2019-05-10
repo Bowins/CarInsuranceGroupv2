@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class DatabaseActivity extends Fragment {
+public class Fragment_Database extends Fragment {
 
 
 

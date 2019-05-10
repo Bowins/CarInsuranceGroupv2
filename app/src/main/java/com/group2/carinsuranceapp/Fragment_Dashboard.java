@@ -7,7 +7,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import org.w3c.dom.Text;
-
-public class Dashboard extends Fragment implements View.OnClickListener {
+public class Fragment_Dashboard extends Fragment implements View.OnClickListener {
 
     private TextView txtWelcome;
     private EditText input_new_password;
@@ -103,7 +100,7 @@ public class Dashboard extends Fragment implements View.OnClickListener {
         else if (view.getId() == R.id.dashboard_btn_database)
         {
 
-            Fragment fragment = new DatabaseActivity();
+            Fragment fragment = new Fragment_Database();
 
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction incidentTransaction = fragmentManager.beginTransaction();

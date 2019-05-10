@@ -1,6 +1,5 @@
 package com.group2.carinsuranceapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -16,8 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-import java.util.function.ToDoubleBiFunction;
 
 public class LoggedInMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -63,7 +60,7 @@ public class LoggedInMainActivity extends AppCompatActivity
 
         //setting first fragment
 
-        Fragment fragment = new Dashboard();
+        Fragment fragment = new Fragment_Dashboard();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -125,7 +122,7 @@ public class LoggedInMainActivity extends AppCompatActivity
         } else if (id == R.id.m_map) {
             fragment = new Fragment_Map();
         }else if (id == R.id.m_dashboard) {
-            fragment = new Dashboard();
+            fragment = new Fragment_Dashboard();
         }
         //TODO fix! does not allow to return to MainActivity
         /*

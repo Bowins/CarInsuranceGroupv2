@@ -16,8 +16,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.w3c.dom.Text;
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button btnLogin;
@@ -50,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Check already session, if okay go dashboard.
 
         if(auth.getCurrentUser() != null)
-            startActivity(new Intent(MainActivity.this,Dashboard.class));
+            startActivity(new Intent(MainActivity.this, Fragment_Dashboard.class));
     }
 
 
