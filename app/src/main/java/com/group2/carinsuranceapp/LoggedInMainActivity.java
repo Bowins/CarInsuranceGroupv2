@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.ResultReceiver;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -24,6 +26,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -31,12 +35,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoggedInMainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private FirebaseAuth auth;
     public FusedLocationProviderClient fusedLocationClient;
     public Location lastKnownLocation;
     private final static int MY_PERMISSION_REQUEST_LOCATION = 1;
+    private ResultReceiver resultReceiver;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -210,5 +216,27 @@ public class LoggedInMainActivity extends AppCompatActivity
                 }
             }
         }
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    public void startIntentService() {
+        Intent intent = new Intent(this, FetchAddressIntentService.class);
+        intent.putExtra(Constants.RECEIVER, resultReceiver);
+        intent.putExtra(Constants.LOCATION_DATA_EXTRA, lastKnownLocation);
+        startService(intent);
     }
 }

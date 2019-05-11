@@ -1,5 +1,6 @@
 package com.group2.carinsuranceapp;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,9 +13,12 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallback {
 
@@ -27,6 +31,9 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
     private MapView mapView;
     private GoogleMap map;
     private Switch aSwitch;
+    private LoggedInMainActivity loggedInMainActivity;
+    private Location currentLocation;
+    private LatLng currentLocationLatLang;
 
     @Nullable
     @Override
@@ -61,6 +68,10 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
                 incidentLocationEditText.setVisibility(View.INVISIBLE);
         aSwitch.setOnClickListener(switchListener);
 
+        loggedInMainActivity = (LoggedInMainActivity) getActivity();
+        currentLocation = loggedInMainActivity.lastKnownLocation;
+        currentLocationLatLang = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
+
 
 
     }
@@ -68,6 +79,9 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+        map.addMarker(new MarkerOptions().position(currentLocationLatLang).title("You are here"));
+        map.moveCamera(CameraUpdateFactory.zoomTo(12.0f));
+        map.moveCamera(CameraUpdateFactory.newLatLng(currentLocationLatLang));
     }
 
     View.OnClickListener switchListener = new View.OnClickListener() {

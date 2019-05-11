@@ -51,4 +51,13 @@
     <string name="text_input_car_registration_num">Registration number</string>
     <string name="button_edit">Edit</string>
     <string name="new_incident_switch">Use current location</string>
+
+
+
+
+    <string name="service_not_available">Service not available</string>
+    <string name="invalid_lat_long_used">invalid_lat_long_used</string>
+    <string name="no_address_found">no_address_found</string>
+    <string name="address_found">address_found</string>
+
 </resources>
