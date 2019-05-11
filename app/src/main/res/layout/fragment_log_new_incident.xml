@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center|top"
@@ -26,57 +27,105 @@
             android:text="@string/button_submit" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/text_incident_date"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/text_incident_date" />
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/field_incident_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="date"
-        tools:targetApi="o"
-        android:focusedByDefault="false"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/text_incident_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/text_incident_time" />
+            <TextView
+                android:id="@+id/text_incident_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text_incident_date" />
 
-    <EditText
-        android:id="@+id/field_incident_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="time"
-        tools:targetApi="o"
-        android:focusedByDefault="false"/>
+            <EditText
+                android:id="@+id/field_incident_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:focusedByDefault="false"
+                android:importantForAutofill="no"
+                android:inputType="date"
+                tools:targetApi="o" />
 
-    <TextView
-        android:id="@+id/text_incident_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/text_incident_description" />
+            <TextView
+                android:id="@+id/text_incident_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text_incident_time" />
 
-    <EditText
-        android:id="@+id/field_incident_description"
-        android:layout_width="match_parent"
-        android:layout_height="148dp"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:importantForAutofill="no" tools:targetApi="o"
-        android:focusedByDefault="false"/>
+            <EditText
+                android:id="@+id/field_incident_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:focusedByDefault="false"
+                android:importantForAutofill="no"
+                android:inputType="time"
+                tools:targetApi="o" />
 
-    <TextView
-        android:id="@+id/text_incident_location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/text_incident_location" />
+            <TextView
+                android:id="@+id/text_incident_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text_incident_description" />
+
+            <EditText
+                android:id="@+id/field_incident_description"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:ems="10"
+                android:focusedByDefault="false"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                tools:targetApi="o" />
+
+            <Switch
+                android:id="@+id/switch_new_incident"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/new_incident_switch" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:id="@+id/field_input_current_position"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text"
+                    tools:layout_editor_absoluteX="34dp"
+                    tools:layout_editor_absoluteY="16dp"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/text_display_current_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:textSize="20dp"
+                    android:text="TextView"
+                    tools:layout_editor_absoluteX="34dp"
+                    tools:layout_editor_absoluteY="16dp"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <com.google.android.gms.maps.MapView
+                    android:id="@+id/mapView_logIncident"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_display_current_location" />
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>
