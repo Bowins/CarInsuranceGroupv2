@@ -39,7 +39,8 @@
         android:ems="10"
         android:importantForAutofill="no"
         android:inputType="date"
-        tools:targetApi="o" />
+        tools:targetApi="o"
+        android:focusedByDefault="false"/>
 
     <TextView
         android:id="@+id/text_incident_time"
@@ -54,7 +55,8 @@
         android:ems="10"
         android:importantForAutofill="no"
         android:inputType="time"
-        tools:targetApi="o" />
+        tools:targetApi="o"
+        android:focusedByDefault="false"/>
 
     <TextView
         android:id="@+id/text_incident_description"
@@ -68,7 +70,8 @@
         android:layout_height="148dp"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:importantForAutofill="no" tools:targetApi="o" />
+        android:importantForAutofill="no" tools:targetApi="o"
+        android:focusedByDefault="false"/>
 
     <TextView
         android:id="@+id/text_incident_location"

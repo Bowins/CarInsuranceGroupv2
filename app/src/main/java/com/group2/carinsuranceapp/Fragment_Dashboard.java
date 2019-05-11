@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -31,12 +32,14 @@ public class Fragment_Dashboard extends Fragment implements View.OnClickListener
 
     private FirebaseAuth auth;
 
-    //TODO change to frangment
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.activity_dashboard,null);
+
+
+
     }
 
     @Override
@@ -50,6 +53,10 @@ public class Fragment_Dashboard extends Fragment implements View.OnClickListener
         btnLogout = view.findViewById(R.id.dashboard_btn_logout);
         activity_dashboard = view.findViewById(R.id.activity_dash_board);
         btnDatabase = view.findViewById(R.id.dashboard_btn_database);
+
+
+        final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
         btnDatabase.setOnClickListener(this);
         btnChangePass.setOnClickListener(this);
@@ -105,5 +112,6 @@ public class Fragment_Dashboard extends Fragment implements View.OnClickListener
             }
         });
     }
+
+
 }
-//  findViewById(R.id.activity_dash_board)

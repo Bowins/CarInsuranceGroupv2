@@ -61,7 +61,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             startActivity(new Intent(SignUp.this, ForgotPassword.class));
             finish();
         }
-        //TODO add error checks
         else if(view.getId() == R.id.signup_btn_register) {
             if(input_email.getText().toString().equals("") || input_pass.getText().toString().equals("")) {
                 Toast.makeText(getApplicationContext(),"Input fields empty",Toast.LENGTH_LONG).show();
