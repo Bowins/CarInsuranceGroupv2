@@ -119,19 +119,9 @@ public class LoggedInMainActivity extends AppCompatActivity
     }
 
     private void updateAddress(Location location) throws IOException {
-        String a = null;
         addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
         String address = addresses.get(0).getAddressLine(0);
-        String city = addresses.get(0).getLocality();
-        String country = addresses.get(0).getCountryName();
-        String postalCode = addresses.get(0).getPostalCode();
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(address+", ");
-        buffer.append(city+", ");
-        buffer.append(postalCode+", ");
-        buffer.append(country);
-        a = buffer.toString();
-        currentAddress = a;
+        currentAddress = address;
 
     }
 
