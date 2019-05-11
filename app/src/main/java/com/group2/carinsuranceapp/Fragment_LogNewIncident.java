@@ -26,7 +26,7 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
     private EditText incidentDateField;
     private EditText incidentDescriptionField;
     private EditText incidentTimeField;
-    private EditText incidentLocationEditText;
+    private EditText incidentLocationAddress;
     private TextView incidentLocationAsCurrentLocation;
     private MapView mapView;
     private GoogleMap map;
@@ -34,6 +34,11 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
     private LoggedInMainActivity loggedInMainActivity;
     private Location currentLocation;
     private LatLng currentLocationLatLang;
+    private EditText incidentLocationPostCode;
+    private EditText incidentLocationTownCity;
+    private EditText incidentLocationCountry;
+    private String currentAddress;
+
 
     @Nullable
     @Override
@@ -47,11 +52,20 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
 
         submitButton = view.findViewById(R.id.b_submit);
         submitButton.setOnClickListener(submitListener);
+
         incidentDateField = view.findViewById(R.id.field_incident_date);
         incidentDescriptionField = view.findViewById(R.id.field_incident_description);
         incidentTimeField= view.findViewById(R.id.field_incident_time);
+
         incidentLocationAsCurrentLocation = view.findViewById(R.id.text_display_current_location);
-        incidentLocationEditText = view.findViewById(R.id.field_input_current_position);
+
+        incidentLocationAddress = view.findViewById(R.id.field_input_current_position_address);
+        incidentLocationCountry = view.findViewById(R.id.field_input_current_position_country);
+        incidentLocationPostCode = view.findViewById(R.id.field_input_current_position_postcode);
+        incidentLocationTownCity = view.findViewById(R.id.field_input_current_position_city);
+
+
+
         aSwitch = view.findViewById(R.id.switch_new_incident);
         mapView = view.findViewById(R.id.mapView_logIncident);
         if (mapView != null) {
@@ -66,12 +80,16 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
                 aSwitch.setChecked(true);
                 mapView.setVisibility(View.VISIBLE);
                 incidentLocationAsCurrentLocation.setVisibility(View.VISIBLE);
-                incidentLocationEditText.setVisibility(View.INVISIBLE);
+                incidentLocationAddress.setVisibility(View.INVISIBLE);
         aSwitch.setOnClickListener(switchListener);
+
 
         loggedInMainActivity = (LoggedInMainActivity) getActivity();
         currentLocation = loggedInMainActivity.lastKnownLocation;
         currentLocationLatLang = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
+
+        currentAddress = loggedInMainActivity.getCurrentAddress();
+        incidentLocationAsCurrentLocation.setText(currentAddress);
 
 
 
@@ -89,19 +107,9 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
         @Override
         public void onClick(View v) {
             if(aSwitch.isChecked()){
-                //show map and current location textView
-                mapView.setVisibility(View.VISIBLE);
-                incidentLocationAsCurrentLocation.setVisibility(View.VISIBLE);
-                //hide location edit text for address
-                incidentLocationEditText.setVisibility(View.INVISIBLE);
+                addressFromMap();
             }else{
-
-                //hide map and current location textView
-                mapView.setVisibility(View.INVISIBLE);
-                incidentLocationAsCurrentLocation.setVisibility(View.INVISIBLE);
-                //show location edit text for address
-                incidentLocationEditText.setVisibility(View.VISIBLE);
-
+                addressManual();
             }
         }
     };
@@ -112,4 +120,25 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
 
         }
     };
+
+    public void addressManual(){
+        mapView.setVisibility(View.INVISIBLE);
+        incidentLocationAsCurrentLocation.setVisibility(View.INVISIBLE);
+        incidentLocationAddress.setVisibility(View.VISIBLE);
+        incidentLocationAddress.setVisibility(View.VISIBLE);
+        incidentLocationCountry.setVisibility(View.VISIBLE);
+        incidentLocationPostCode.setVisibility(View.VISIBLE);
+        incidentLocationTownCity.setVisibility(View.VISIBLE);
+    }
+
+    public void addressFromMap(){
+        mapView.setVisibility(View.VISIBLE);
+        incidentLocationAsCurrentLocation.setVisibility(View.VISIBLE);
+
+        incidentLocationAddress.setVisibility(View.INVISIBLE);
+        incidentLocationAddress.setVisibility(View.INVISIBLE);
+        incidentLocationCountry.setVisibility(View.INVISIBLE);
+        incidentLocationPostCode.setVisibility(View.INVISIBLE);
+        incidentLocationTownCity.setVisibility(View.INVISIBLE);
+    }
 }

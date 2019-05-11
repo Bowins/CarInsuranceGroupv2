@@ -3,6 +3,8 @@ package com.group2.carinsuranceapp;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,6 +37,10 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 public class LoggedInMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -42,6 +48,13 @@ public class LoggedInMainActivity extends AppCompatActivity
     public FusedLocationProviderClient fusedLocationClient;
     public Location lastKnownLocation;
     private final static int MY_PERMISSION_REQUEST_LOCATION = 1;
+    Geocoder geocoder;
+    List<Address> addresses;
+    String currentAddress;
+
+    public String getCurrentAddress() {
+        return this.currentAddress;
+    }
 
 
     @Override
@@ -55,6 +68,7 @@ public class LoggedInMainActivity extends AppCompatActivity
         auth = FirebaseAuth.getInstance();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         lastKnownLocation = new Location("");
+        currentAddress = "";
 
         //Fab takes user to "Log new incident"
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -94,10 +108,33 @@ public class LoggedInMainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.screen, fragment);
         fragmentTransaction.commit();
 
-        Log.d("LOCATION BEFORE",lastKnownLocation.getLatitude()+ " " + lastKnownLocation.getLongitude());
+
+        //Location
+        geocoder = new Geocoder(this, Locale.getDefault());
         getLastLocation();
-        Log.d("LOCATION AFTER",lastKnownLocation.getLatitude()+ " " + lastKnownLocation.getLongitude());
+
+        Log.d("ADRESS",currentAddress);
+
+
     }
+
+    private void updateAddress(Location location) throws IOException {
+        String a = null;
+        addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+        String address = addresses.get(0).getAddressLine(0);
+        String city = addresses.get(0).getLocality();
+        String country = addresses.get(0).getCountryName();
+        String postalCode = addresses.get(0).getPostalCode();
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(address+", ");
+        buffer.append(city+", ");
+        buffer.append(postalCode+", ");
+        buffer.append(country);
+        a = buffer.toString();
+        currentAddress = a;
+
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -191,6 +228,11 @@ public class LoggedInMainActivity extends AppCompatActivity
                 public void onSuccess(Location location) {
                     if (location != null) {
                         lastKnownLocation = location;
+                        try {
+                            updateAddress(lastKnownLocation);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             });
@@ -216,6 +258,7 @@ public class LoggedInMainActivity extends AppCompatActivity
                 }
             }
         }
+
     }
 
 

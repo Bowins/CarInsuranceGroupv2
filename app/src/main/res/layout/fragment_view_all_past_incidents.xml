@@ -12,12 +12,6 @@
         android:text="@string/view_incidents"
         android:textSize="45sp" />
 
-    <Button
-        android:id="@+id/b_rand_inc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/incident_name" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -30,21 +30,5 @@ public class Fragment_ViewAllPastIncidents extends Fragment {
 
 
 
-
-
-
-        view.findViewById(R.id.b_rand_inc).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment = new Fragment_ShowIncident();
-
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                fragmentTransaction.replace(R.id.screen,fragment);
-                fragmentTransaction.commit();
-            }
-        });
-
     }
 }
