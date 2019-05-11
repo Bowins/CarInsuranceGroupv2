@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.ResultReceiver;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -41,7 +42,8 @@ public class LoggedInMainActivity extends AppCompatActivity
     public FusedLocationProviderClient fusedLocationClient;
     public Location lastKnownLocation;
     private final static int MY_PERMISSION_REQUEST_LOCATION = 1;
-    private ResultReceiver resultReceiver;
+    private AddressResultReceiver resultReceiver;
+    public String addressOutput = null;
 
 
     @Override
@@ -238,5 +240,28 @@ public class LoggedInMainActivity extends AppCompatActivity
         intent.putExtra(Constants.RECEIVER, resultReceiver);
         intent.putExtra(Constants.LOCATION_DATA_EXTRA, lastKnownLocation);
         startService(intent);
+    }
+
+    class AddressResultReceiver extends ResultReceiver {
+        public AddressResultReceiver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+
+            if (resultData == null) {
+                return;
+            }
+
+            // Display the address string
+            // or an error message sent from the intent service.
+            addressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
+            if (addressOutput == null) {
+                addressOutput = "";
+            }
+
+
+        }
     }
 }

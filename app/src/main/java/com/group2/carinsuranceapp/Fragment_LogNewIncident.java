@@ -46,6 +46,7 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
         super.onViewCreated(view, savedInstanceState);
 
         submitButton = view.findViewById(R.id.b_submit);
+        submitButton.setOnClickListener(submitListener);
         incidentDateField = view.findViewById(R.id.field_incident_date);
         incidentDescriptionField = view.findViewById(R.id.field_incident_description);
         incidentTimeField= view.findViewById(R.id.field_incident_time);
@@ -102,6 +103,14 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
                 incidentLocationEditText.setVisibility(View.VISIBLE);
 
             }
+        }
+    };
+
+    View.OnClickListener submitListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            loggedInMainActivity.startIntentService();
+            incidentDescriptionField.setText(loggedInMainActivity.addressOutput);
         }
     };
 }
