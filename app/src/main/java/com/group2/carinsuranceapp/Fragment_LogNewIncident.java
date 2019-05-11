@@ -109,8 +109,7 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
     View.OnClickListener submitListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            loggedInMainActivity.startIntentService();
-            incidentDescriptionField.setText(loggedInMainActivity.addressOutput);
+
         }
     };
 }
