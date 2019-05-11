@@ -1,10 +1,15 @@
 package com.group2.carinsuranceapp;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,13 +22,21 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoggedInMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth auth;
+    public FusedLocationProviderClient fusedLocationClient;
+    public Location lastKnownLocation;
+    private final static int MY_PERMISSION_REQUEST_LOCATION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +44,11 @@ public class LoggedInMainActivity extends AppCompatActivity
         setContentView(R.layout.activity_loged_in_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        createLocationRequest();
 
         auth = FirebaseAuth.getInstance();
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        lastKnownLocation = new Location("");
 
         //Fab takes user to "Log new incident"
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -47,7 +63,7 @@ public class LoggedInMainActivity extends AppCompatActivity
                 FragmentManager incidentManager = getSupportFragmentManager();
                 FragmentTransaction incidentTransaction = incidentManager.beginTransaction();
 
-                incidentTransaction.replace(R.id.screen,incident);
+                incidentTransaction.replace(R.id.screen, incident);
                 incidentTransaction.commit();
 
             }
@@ -69,8 +85,12 @@ public class LoggedInMainActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        fragmentTransaction.replace(R.id.screen,fragment);
+        fragmentTransaction.replace(R.id.screen, fragment);
         fragmentTransaction.commit();
+
+        Log.d("LOCATION BEFORE",lastKnownLocation.getLatitude()+ " " + lastKnownLocation.getLongitude());
+        getLastLocation();
+        Log.d("LOCATION AFTER",lastKnownLocation.getLatitude()+ " " + lastKnownLocation.getLongitude());
     }
 
     @Override
@@ -125,25 +145,24 @@ public class LoggedInMainActivity extends AppCompatActivity
             fragment = new Fragment_MyInsuranceInfo();
         } else if (id == R.id.m_map) {
             fragment = new Fragment_Map();
-        }else if (id == R.id.m_dashboard) {
+        } else if (id == R.id.m_dashboard) {
             fragment = new Fragment_Dashboard();
-        }
-        else if (id == R.id.m_logOut) {
+        } else if (id == R.id.m_logOut) {
             auth.signOut();
-            if(auth.getCurrentUser() == null){
-                startActivity(new Intent(LoggedInMainActivity.this,MainActivity.class));
+            if (auth.getCurrentUser() == null) {
+                startActivity(new Intent(LoggedInMainActivity.this, MainActivity.class));
 
             }
         }
 
 
         //if didn't sign out change the view fragment
-        if(fragment != null){
+        if (fragment != null) {
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-            fragmentTransaction.replace(R.id.screen,fragment);
+            fragmentTransaction.replace(R.id.screen, fragment);
             fragmentTransaction.commit();
 
         }
@@ -151,5 +170,45 @@ public class LoggedInMainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void getLastLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if(ActivityCompat.shouldShowRequestPermissionRationale(LoggedInMainActivity.this,Manifest.permission.ACCESS_FINE_LOCATION )&&ActivityCompat.shouldShowRequestPermissionRationale(LoggedInMainActivity.this,Manifest.permission.ACCESS_COARSE_LOCATION )){
+                Toast.makeText(this,"no permission",Toast.LENGTH_LONG);
+            } else {
+                ActivityCompat.requestPermissions(LoggedInMainActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSION_REQUEST_LOCATION);
+            }
+        }else {
+            fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null) {
+                        lastKnownLocation = location;
+                    }
+                }
+            });
+        }
+    }
+
+    protected void createLocationRequest() {
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(5000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case MY_PERMISSION_REQUEST_LOCATION:{
+                if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+                }else {
+
+                }
+            }
+        }
     }
 }
