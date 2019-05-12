@@ -42,9 +42,10 @@ public class Fragment_AddCar extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        registration = view.findViewById(R.id.carRegistrationLabel);
-        model = view.findViewById(R.id.carModelLabel);
-        make = view.findViewById(R.id.carMakeLabel);
+
+        registration = view.findViewById(R.id.car_registration_label);
+        model = view.findViewById(R.id.car_model_label);
+        make = view.findViewById(R.id.car_make_label);
         submit = view.findViewById(R.id.b_submit);
 
 

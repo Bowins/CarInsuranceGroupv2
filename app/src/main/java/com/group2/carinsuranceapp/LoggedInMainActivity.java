@@ -11,7 +11,6 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -34,7 +33,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -63,8 +61,22 @@ public class LoggedInMainActivity extends AppCompatActivity
     List<Address> addresses;
     String currentAddress;
 
+    public LatLng getLatlngFromMapFragment() {
+        return latlngFromMapFragment;
+    }
+
+    public void setLatlngFromMapFragment(LatLng latlngFromMapFragment) {
+        this.latlngFromMapFragment = latlngFromMapFragment;
+    }
+
+    protected LatLng latlngFromMapFragment = null;
+
     public String getCurrentAddress() {
         return this.currentAddress;
+    }
+
+    public void setCurrentAddress(String address) {
+         this.currentAddress = address;
     }
 
     File photoFile;
@@ -116,7 +128,7 @@ public class LoggedInMainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        Fragment fragment = new Fragment_Dashboard();
+        Fragment fragment = new Fragment_ViewAllPastIncidents();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -161,10 +173,6 @@ public class LoggedInMainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -189,8 +197,8 @@ public class LoggedInMainActivity extends AppCompatActivity
             fragment = new Fragment_MyInsuranceInfo();
         } else if (id == R.id.m_map) {
             fragment = new Fragment_Map();
-        } else if (id == R.id.m_dashboard) {
-            fragment = new Fragment_Dashboard();
+        } else if (id == R.id.m_settings) {
+            fragment = new Fragment_Settings();
         } else if (id == R.id.m_logOut) {
             auth.signOut();
             if (auth.getCurrentUser() == null) {
@@ -247,7 +255,7 @@ public class LoggedInMainActivity extends AppCompatActivity
 
     }
 
-    private void updateAddress(Location location) throws IOException {
+    protected void updateAddress(Location location) throws IOException {
         addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
         String address = addresses.get(0).getAddressLine(0);
         currentAddress = address;

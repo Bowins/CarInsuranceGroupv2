@@ -3,9 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
     <item
-        android:id="@+id/m_dashboard"
-        android:title="@string/dashboard" />
-    <item
         android:id="@+id/m_logIncident"
         android:title="@string/log_incident" />
     <item
@@ -20,6 +17,9 @@
     <item
         android:id="@+id/m_map"
         android:title="@string/map" />
+    <item
+        android:id="@+id/m_settings"
+        android:title="@string/settings" />
     <item
     android:id="@+id/m_logOut"
     android:title="@string/logout" />

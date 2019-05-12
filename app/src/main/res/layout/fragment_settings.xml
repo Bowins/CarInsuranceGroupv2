@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/activity_dash_board"
-    tools:context=".Fragment_Dashboard">
+    tools:context=".Fragment_Settings">
 
     <ImageView
         android:contentDescription="@string/app_name"

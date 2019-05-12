@@ -9,7 +9,7 @@
     <string name="my_insurance_info">My insurance information</string>
     <string name="map">Map</string>
     <string name="logout">Log out</string>
-    <string name="dashboard">Dashboard</string>
+    <string name="settings">Settings</string>
 
 
     <!--Navigation drawer-->
@@ -50,7 +50,7 @@
     <string name="text_input_car_make">Make</string>
     <string name="text_input_car_registration_num">Registration number</string>
     <string name="button_edit">Edit</string>
-    <string name="new_incident_switch">Use current location or find on map</string>
+    <string name="new_incident_switch">Use current location from</string>
 
 
     <string name="service_not_available">Service not available</string>
@@ -66,6 +66,7 @@
     <string name="text_first_name_edit_label">First name</string>
     <string name="text_last_name_edit_label">Last name</string>
     <string name="button_edit_personal_submit">Submit changes</string>
+    <string name="button_use_address_in_new_incident">Use selected location in Log new incident</string>
 
 
 </resources>
