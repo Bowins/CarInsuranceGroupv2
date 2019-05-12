@@ -49,7 +49,7 @@ public class Fragment_MyInformation extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference("User");
-        userID = mAuth.getUid();
+        userID = mAuth.getCurrentUser().getUid();
 
 
         //Views
