@@ -27,6 +27,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <activity android:name=".EditPersonalInformationActivity"
+            android:windowSoftInputMode="stateHidden" /> <!-- hides keyboard on load -->
         <activity
             android:name=".SignUp"
             android:windowSoftInputMode="stateHidden" /> <!-- hides keyboard on load -->

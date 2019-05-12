@@ -25,6 +25,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -135,15 +136,32 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
         incidentLocationAddress.setVisibility(View.INVISIBLE);
     }
 
-
+//------map------------------------------------------------
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
 
         //put marker on current location
         map.addMarker(new MarkerOptions().position(currentLocationLatLang).title("You are here"));
-        map.moveCamera(CameraUpdateFactory.zoomTo(12.0f));
+        map.moveCamera(CameraUpdateFactory.zoomTo(13.0f));
         map.moveCamera(CameraUpdateFactory.newLatLng(currentLocationLatLang));
+
+        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                map.clear();
+                map.addMarker(new MarkerOptions().position(latLng).title("You are here"));
+                currentLocationLatLang = latLng;
+                try {
+                    loggedInMainActivity.updateAddress(latLng);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                currentAddress = loggedInMainActivity.getCurrentAddress();
+                incidentLocationAsCurrentLocation.setText(currentAddress);
+
+            }
+        });
     }
 
 

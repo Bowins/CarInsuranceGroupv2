@@ -40,6 +40,7 @@ import android.widget.Toast;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -133,12 +134,7 @@ public class LoggedInMainActivity extends AppCompatActivity
 
     }
 
-    private void updateAddress(Location location) throws IOException {
-        addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
-        String address = addresses.get(0).getAddressLine(0);
-        currentAddress = address;
 
-    }
 
 //--------menu--------------------------------------------------------------------------------------
     @Override
@@ -243,6 +239,19 @@ public class LoggedInMainActivity extends AppCompatActivity
                 }
             });
         }
+    }
+    protected void updateAddress(LatLng latLng) throws IOException {
+        addresses = geocoder.getFromLocation(latLng.latitude,latLng.longitude,1);
+        String address = addresses.get(0).getAddressLine(0);
+        currentAddress = address;
+
+    }
+
+    private void updateAddress(Location location) throws IOException {
+        addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+        String address = addresses.get(0).getAddressLine(0);
+        currentAddress = address;
+
     }
 
     protected void createLocationRequest() {

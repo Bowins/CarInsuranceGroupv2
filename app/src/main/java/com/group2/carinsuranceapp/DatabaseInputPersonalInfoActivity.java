@@ -53,7 +53,6 @@ public class DatabaseInputPersonalInfoActivity extends AppCompatActivity {
         selectedSex = (RadioButton)findViewById(R.id.radio_button_female);
 
 
-        //TODO change onClick to update database
         nextButton =(Button) findViewById(R.id.b_signup_next);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
