@@ -8,14 +8,14 @@ public class UserData {
     String email;
     String firstName;
     String lastName;
-    Date dob;
+    String dob;
     String gender;
 
     public UserData() {
 
     }
 
-    public UserData(String email, String firstName, String lastName, Date dob, String gender) {
+    public UserData(String email, String firstName, String lastName, String dob, String gender) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -35,7 +35,7 @@ public class UserData {
         this.lastName = lastName;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 

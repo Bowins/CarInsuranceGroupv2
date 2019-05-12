@@ -56,7 +56,7 @@ public class DatabaseInputPersonalInfoActivity extends AppCompatActivity {
         dateOfBirthField = findViewById(R.id.field_enter_date_of_birth);
         sexRadioButton = findViewById(R.id.radio_button_group_sex);
         int selectedId = sexRadioButton.getCheckedRadioButtonId();
-        selectedSex = (RadioButton) findViewById(selectedId);
+        selectedSex = (RadioButton)findViewById(R.id.radio_button_female);
 
 
         //TODO change onClick to update database
@@ -66,33 +66,41 @@ public class DatabaseInputPersonalInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 String dateOfBirth = dateOfBirthField.getText().toString();
-                Date date1;
-                try {
-                    date1=new SimpleDateFormat("dd/MM/yyyy").parse(dateOfBirth);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Wrong Date Input", Toast.LENGTH_LONG);
-                }
+                Log.e(TAG, "Date of birth in string format: " + dateOfBirth);
 
-                if ((inputHandle(firstNameField) == false) && (inputHandle(surnameField) == false) && !(dateOfBirthField.getText().toString().equals(""))) {
+                if ((inputHandle(firstNameField) == false) && (inputHandle(surnameField) == false) && !(dateOfBirth.equals(""))) {
 
-                    FirebaseUser user = mAuth.getCurrentUser();
+                    FirebaseUser userAuth = mAuth.getCurrentUser();
 
                     //Creating User
                     String first = firstNameField.getText().toString();
                     String surname = surnameField.getText().toString();
-                    String email = user.getEmail().toString();
-                    String ID = user.getUid();
-                    String gender = selectedSex.getText().toString();
+                    String email = userAuth.getEmail();
+                    String ID = userAuth.getUid();
+                    String gender = "Male";
+                    if (selectedSex.isChecked()) {
+                        gender = "Female";
+                    }
 
-                    //UserData user = new UserData(first, surname, )
+                    //Trying to input data in database
+                    try {
+
+                        //Define object, reference
+                        UserData user = new UserData(email, first, surname, dateOfBirth, gender);
+                        DatabaseReference myRef = mFirebaseDatabase.getReference("User");
+                        //Setting value
+                        myRef.child(ID).setValue(user);
+                        startActivity(new Intent(DatabaseInputPersonalInfoActivity.this, DatabaseInputInsuranceInfoActivity.class));
+
+                    } catch (Exception e2) {
+                        Toast.makeText(getApplicationContext(), "Adding data was unsuccessful", Toast.LENGTH_LONG);
+
+                    }
                 }
 
 
 
-                startActivity(new Intent(DatabaseInputPersonalInfoActivity.this, DatabaseInputInsuranceInfoActivity.class));
-                DatabaseReference myRef = mFirebaseDatabase.getReference("User");
-                myRef.setValue("Hello, World!");
+
 
 
             }
