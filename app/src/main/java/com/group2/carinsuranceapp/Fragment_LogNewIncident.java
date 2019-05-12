@@ -1,15 +1,19 @@
 package com.group2.carinsuranceapp;
 
+import android.Manifest;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -19,6 +23,9 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallback {
 
@@ -38,6 +45,14 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
     private EditText incidentLocationTownCity;
     private EditText incidentLocationCountry;
     private String currentAddress;
+    private Button takePictureButton;
+
+    //taking photos fields
+    private ImageView imView1;
+    private ImageView imView2;
+    private ImageView imView3;
+    private ImageView imView4;
+
 
 
     @Nullable
@@ -53,6 +68,9 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
         submitButton = view.findViewById(R.id.b_submit);
         submitButton.setOnClickListener(submitListener);
 
+        takePictureButton = view.findViewById(R.id.button_take_picture);
+        takePictureButton.setOnClickListener(takePictureListener);
+
         incidentDateField = view.findViewById(R.id.field_incident_date);
         incidentDescriptionField = view.findViewById(R.id.field_incident_description);
         incidentTimeField= view.findViewById(R.id.field_incident_time);
@@ -63,6 +81,13 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
         incidentLocationCountry = view.findViewById(R.id.field_input_current_position_country);
         incidentLocationPostCode = view.findViewById(R.id.field_input_current_position_postcode);
         incidentLocationTownCity = view.findViewById(R.id.field_input_current_position_city);
+
+        imView1 = view.findViewById(R.id.incident_picture_1);
+        imView2 = view.findViewById(R.id.incident_picture_2);
+        imView3 = view.findViewById(R.id.incident_picture_3);
+        imView4 = view.findViewById(R.id.incident_picture_4);
+
+
 
 
 
@@ -78,10 +103,8 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
         //location
             //set initial view
                 aSwitch.setChecked(true);
-                mapView.setVisibility(View.VISIBLE);
-                incidentLocationAsCurrentLocation.setVisibility(View.VISIBLE);
-                incidentLocationAddress.setVisibility(View.INVISIBLE);
-        aSwitch.setOnClickListener(switchListener);
+                viewsSetup();
+                aSwitch.setOnClickListener(switchListener);
 
 
         loggedInMainActivity = (LoggedInMainActivity) getActivity();
@@ -92,7 +115,20 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
         incidentLocationAsCurrentLocation.setText(currentAddress);
 
 
+        if(Build.VERSION.SDK_INT >= 23){
+            requestPermissions(new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},3);
+        }
 
+    }
+
+    private void viewsSetup() {
+        mapView.setVisibility(View.VISIBLE);
+        incidentLocationAsCurrentLocation.setVisibility(View.VISIBLE);
+        incidentLocationAddress.setVisibility(View.INVISIBLE);
+       // imView1.setVisibility(View.INVISIBLE);
+       // imView2.setVisibility(View.INVISIBLE);
+       // imView3.setVisibility(View.INVISIBLE);
+      //  imView4.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -118,6 +154,15 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
         @Override
         public void onClick(View v) {
 
+            loggedInMainActivity.resetPhotoCounter();
+
+        }
+    };
+
+    View.OnClickListener takePictureListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            loggedInMainActivity.takePicture();
         }
     };
 
