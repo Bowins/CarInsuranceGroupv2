@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -74,7 +75,11 @@ public class Fragment_Dashboard extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View view){
         if(view.getId() == R.id.dashboard_btn_change_pass)
-            changePassword(input_new_password.getText().toString());
+
+            if(input_new_password.getText().equals(null)){
+                Toast.makeText(getActivity(),"Input new password",Toast.LENGTH_LONG);
+            }else{ changePassword(input_new_password.getText().toString());
+            }
         else if(view.getId() == R.id.dashboard_btn_logout)
             logoutUser();
         else if (view.getId() == R.id.dashboard_btn_database)
