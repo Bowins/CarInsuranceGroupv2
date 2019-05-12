@@ -39,15 +39,6 @@ public class DatabaseInputPersonalInfoActivity extends AppCompatActivity {
         //mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
 
-        /*
-        Alright so this right here is the line that is the line gives me errors
-        Every time I try to reference the database it gives me a weird error and it crashes
-        This is literally the end of the sample example the Firebase gives me which is appending a
-        message: message > Hello, World!
-         */
-
-        DatabaseReference myRef = mFirebaseDatabase.getReference("message");
-        myRef.setValue("Hello, World!");
 
         //widgets
         firstNameField = findViewById(R.id.field_enter_forename);
@@ -61,6 +52,8 @@ public class DatabaseInputPersonalInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(DatabaseInputPersonalInfoActivity.this, DatabaseInputInsuranceInfoActivity.class));
+                DatabaseReference myRef = mFirebaseDatabase.getReference("message");
+                myRef.setValue("Hello, World!");
             }
         });
     }
