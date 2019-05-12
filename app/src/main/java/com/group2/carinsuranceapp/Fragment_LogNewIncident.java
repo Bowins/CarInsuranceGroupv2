@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -46,6 +47,8 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
     private EditText incidentLocationCountry;
     private String currentAddress;
     private Button takePictureButton;
+    private ListView carListView;
+    private Button deletePicturesButton;
 
     //taking photos fields
     private ImageView imView1;
@@ -65,11 +68,15 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
         submitButton = view.findViewById(R.id.b_submit);
         submitButton.setOnClickListener(submitListener);
 
         takePictureButton = view.findViewById(R.id.button_take_picture);
         takePictureButton.setOnClickListener(takePictureListener);
+
+        deletePicturesButton = view.findViewById(R.id.button_delete_pictures);
+        deletePicturesButton.setOnClickListener(deletePicturesListener);
 
         incidentDateField = view.findViewById(R.id.field_incident_date);
         incidentDescriptionField = view.findViewById(R.id.field_incident_description);
@@ -88,10 +95,17 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
         imView4 = view.findViewById(R.id.incident_picture_4);
 
 
-
-
-
         aSwitch = view.findViewById(R.id.switch_new_incident);
+        aSwitch.setChecked(true);
+        aSwitch.setOnClickListener(switchListener);
+
+        loggedInMainActivity = (LoggedInMainActivity) getActivity();
+
+        carListView = view.findViewById(R.id.incident_car_list_view);
+
+
+
+        //Map
         mapView = view.findViewById(R.id.mapView_logIncident);
         if (mapView != null) {
             mapView.onCreate(null);
@@ -99,15 +113,6 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
             mapView.getMapAsync(this);
         }
 
-
-        //location
-            //set initial view
-                aSwitch.setChecked(true);
-                viewsSetup();
-                aSwitch.setOnClickListener(switchListener);
-
-
-        loggedInMainActivity = (LoggedInMainActivity) getActivity();
         currentLocation = loggedInMainActivity.lastKnownLocation;
         currentLocationLatLang = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
 
@@ -115,30 +120,34 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
         incidentLocationAsCurrentLocation.setText(currentAddress);
 
 
+        viewsSetup();
+
         if(Build.VERSION.SDK_INT >= 23){
             requestPermissions(new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},3);
         }
 
     }
 
+    //makes some fields invisible
     private void viewsSetup() {
         mapView.setVisibility(View.VISIBLE);
         incidentLocationAsCurrentLocation.setVisibility(View.VISIBLE);
         incidentLocationAddress.setVisibility(View.INVISIBLE);
-       // imView1.setVisibility(View.INVISIBLE);
-       // imView2.setVisibility(View.INVISIBLE);
-       // imView3.setVisibility(View.INVISIBLE);
-      //  imView4.setVisibility(View.INVISIBLE);
     }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+
+        //put marker on current location
         map.addMarker(new MarkerOptions().position(currentLocationLatLang).title("You are here"));
         map.moveCamera(CameraUpdateFactory.zoomTo(12.0f));
         map.moveCamera(CameraUpdateFactory.newLatLng(currentLocationLatLang));
     }
 
+
+    //on click listeners------------------------------------------------------------------------------
     View.OnClickListener switchListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -162,10 +171,21 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
     View.OnClickListener takePictureListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            //saves photo file paths of all the pictures in LoggedInMainActivity
+            //  photoFilePathsList
             loggedInMainActivity.takePicture();
         }
     };
+    View.OnClickListener deletePicturesListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            loggedInMainActivity.deletePhotos();
+        }
+    };
 
+    //-----------------------------------------------------------------------------------------------
+
+    //methods called by the switch
     public void addressManual(){
         mapView.setVisibility(View.INVISIBLE);
         incidentLocationAsCurrentLocation.setVisibility(View.INVISIBLE);
@@ -186,4 +206,5 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
         incidentLocationPostCode.setVisibility(View.INVISIBLE);
         incidentLocationTownCity.setVisibility(View.INVISIBLE);
     }
+    //---------------------------------------------------------------------------------------------
 }

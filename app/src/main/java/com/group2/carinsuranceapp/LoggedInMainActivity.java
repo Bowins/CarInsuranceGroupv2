@@ -11,6 +11,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -33,6 +34,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -60,7 +62,6 @@ public class LoggedInMainActivity extends AppCompatActivity
     List<Address> addresses;
     String currentAddress;
 
-
     public String getCurrentAddress() {
         return this.currentAddress;
     }
@@ -68,8 +69,7 @@ public class LoggedInMainActivity extends AppCompatActivity
     File photoFile;
     protected String currentPathToFile;
     protected int photoCounter = 0;
-    private static final int NUMER_OF_PHOTOS_POSSIBLE = 4;
-    List<String> photoFilePathsList = new ArrayList<String>(NUMER_OF_PHOTOS_POSSIBLE);
+    List<String> photoFilePathsList = new ArrayList<>(4);
 
 
     @Override
@@ -140,7 +140,7 @@ public class LoggedInMainActivity extends AppCompatActivity
 
     }
 
-
+//--------menu--------------------------------------------------------------------------------------
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -220,6 +220,7 @@ public class LoggedInMainActivity extends AppCompatActivity
         return true;
     }
 
+    //Location---------------------------------------------------------------------------------------------------
     public void getLastLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if(ActivityCompat.shouldShowRequestPermissionRationale(LoggedInMainActivity.this,Manifest.permission.ACCESS_FINE_LOCATION )&&ActivityCompat.shouldShowRequestPermissionRationale(LoggedInMainActivity.this,Manifest.permission.ACCESS_COARSE_LOCATION )){
@@ -253,6 +254,7 @@ public class LoggedInMainActivity extends AppCompatActivity
 
 
 
+    //Picture handling------------------------------------------------------------------------------
     public void takePicture() {
 
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
@@ -304,29 +306,7 @@ public class LoggedInMainActivity extends AppCompatActivity
         return image;
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        switch (requestCode){
-            case 1:{
-                if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-
-                }else{
-
-                }
-                return;
-            }
-            case 2:{
-                if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-
-                }else{
-
-                }
-                return;
-            }
-        }
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -387,6 +367,7 @@ public class LoggedInMainActivity extends AppCompatActivity
         bmOptions.inPurgeable = true;
 
         Bitmap bitmap = BitmapFactory.decodeFile(filePath,bmOptions);
+        im.setClickable(true);
         im.setImageBitmap(bitmap);
 
     }
@@ -394,4 +375,45 @@ public class LoggedInMainActivity extends AppCompatActivity
     public  void resetPhotoCounter(){
         photoCounter = 0;
     }
+
+
+    public void deletePhotos() {
+        ImageView im = findViewById(R.id.incident_picture_1);
+        im.setImageBitmap(null);
+        im = findViewById(R.id.incident_picture_2);
+        im.setImageBitmap(null);
+        im = findViewById(R.id.incident_picture_3);
+        im.setImageBitmap(null);
+        im = findViewById(R.id.incident_picture_4);
+        im.setImageBitmap(null);
+
+        photoFilePathsList.clear();
+        resetPhotoCounter();
+    }
+    //-----------------------------------------------------------------------------------------------
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode){
+            case 1:{
+                if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+                }else{
+
+                }
+                return;
+            }
+            case 2:{
+                if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+                }else{
+
+                }
+                return;
+            }
+        }
+    }
+
+
 }

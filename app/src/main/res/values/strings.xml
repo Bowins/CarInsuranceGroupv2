@@ -62,5 +62,7 @@
     <string name="text_incident_location_label">Location</string>
     <string name="text_incident_pictures">Take some pictures of the incident</string>
     <string name="button_take_picture">Take picture</string>
+    <string name="text_incident_car">Choose car</string>
+    <string name="button_delete_pictures">Delete pictures</string>
 
 </resources>
