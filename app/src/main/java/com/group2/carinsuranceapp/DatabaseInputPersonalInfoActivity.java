@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class DatabaseInputPersonalInfoActivity extends AppCompatActivity {
     private EditText surnameField;
     private EditText dateOfBirthField;
     private RadioGroup sexRadioButton;
+    private RadioButton selectedSex;
 
     // puts in database
     private Button nextButton;
@@ -36,6 +38,7 @@ public class DatabaseInputPersonalInfoActivity extends AppCompatActivity {
     // database variables
     private static final String TAG = "AddToDatabase";
     FirebaseDatabase mFirebaseDatabase;
+    FirebaseAuth mAuth;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +46,7 @@ public class DatabaseInputPersonalInfoActivity extends AppCompatActivity {
 
 
         // initialise database variables
-        //mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
 
 
@@ -52,6 +55,9 @@ public class DatabaseInputPersonalInfoActivity extends AppCompatActivity {
         surnameField = findViewById(R.id.field_enter_surname);
         dateOfBirthField = findViewById(R.id.field_enter_date_of_birth);
         sexRadioButton = findViewById(R.id.radio_button_group_sex);
+        int selectedId = sexRadioButton.getCheckedRadioButtonId();
+        selectedSex = (RadioButton) findViewById(selectedId);
+
 
         //TODO change onClick to update database
         nextButton =(Button) findViewById(R.id.b_signup_next);
@@ -60,28 +66,34 @@ public class DatabaseInputPersonalInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 String dateOfBirth = dateOfBirthField.getText().toString();
-
+                Date date1;
                 try {
-                    Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(dateOfBirth);
+                    date1=new SimpleDateFormat("dd/MM/yyyy").parse(dateOfBirth);
                 } catch (ParseException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "Wrong Date Input", Toast.LENGTH_LONG);
                 }
 
-                if ((inputHandle(firstNameField) == false) && (inputHandle(surnameField) == false) && (dateOfBirthField.getText().toString().equals(""))) {
+                if ((inputHandle(firstNameField) == false) && (inputHandle(surnameField) == false) && !(dateOfBirthField.getText().toString().equals(""))) {
+
+                    FirebaseUser user = mAuth.getCurrentUser();
 
                     //Creating User
                     String first = firstNameField.getText().toString();
                     String surname = surnameField.getText().toString();
-                   // UserData user = new UserData(first, surname, )
+                    String email = user.getEmail().toString();
+                    String ID = user.getUid();
+                    String gender = selectedSex.getText().toString();
+
+                    //UserData user = new UserData(first, surname, )
                 }
 
 
 
                 startActivity(new Intent(DatabaseInputPersonalInfoActivity.this, DatabaseInputInsuranceInfoActivity.class));
-                DatabaseReference myRef = mFirebaseDatabase.getReference("message");
+                DatabaseReference myRef = mFirebaseDatabase.getReference("User");
                 myRef.setValue("Hello, World!");
-                
+
 
             }
         });
