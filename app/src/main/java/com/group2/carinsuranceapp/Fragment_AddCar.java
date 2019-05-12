@@ -1,5 +1,6 @@
 package com.group2.carinsuranceapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -75,6 +76,8 @@ public class Fragment_AddCar extends Fragment {
                         //Setting value
                         //Path is Car -> Current user ID -> Car ID
                         myRef.child(userAuth.getUid()).child(reg).setValue(car);
+
+                        startActivity(new Intent(getContext(), Fragment_MyInsuranceInfo.class));
 
                     } catch (Exception e) {
                         e.printStackTrace();
