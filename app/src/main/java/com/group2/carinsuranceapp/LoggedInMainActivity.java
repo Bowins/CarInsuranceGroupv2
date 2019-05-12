@@ -31,6 +31,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -337,16 +338,24 @@ public class LoggedInMainActivity extends AppCompatActivity
                     switch (photoCounter) {
                         case 0: {
                             loadImageFromFile(currentPathToFile, R.id.incident_picture_1);
-
+                            photoCounter++;
                             return;
                         }
                         case 1: {
+                            loadImageFromFile(currentPathToFile, R.id.incident_picture_2);
+                            photoCounter++;
                             return;
                         }
                         case 2: {
+                            loadImageFromFile(currentPathToFile, R.id.incident_picture_3);
+                            photoCounter++;
                             return;
                         }
                         case 3: {
+                            loadImageFromFile(currentPathToFile, R.id.incident_picture_4);
+                            Button takepic = (Button)findViewById(R.id.button_take_picture);
+                            takepic.setVisibility(View.INVISIBLE);
+                            photoCounter++;
                             return;
                         }
                     }
