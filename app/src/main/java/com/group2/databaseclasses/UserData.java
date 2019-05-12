@@ -1,8 +1,5 @@
 package com.group2.databaseclasses;
 
-
-import java.util.Date;
-
 public class UserData {
 
     String email;
