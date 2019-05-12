@@ -95,9 +95,7 @@ public class Fragment_MyInsuranceInfo extends Fragment {
                 Log.e(TAG, "This exists  " + dataSnapshot.getChildrenCount());
                 for (DataSnapshot sn: dataSnapshot.getChildren()) {
                     UserCar car = sn.getValue(UserCar.class);
-                    Log.e(TAG, "whatever getchildren() does: " + sn.toString());
                     listofcars.add(car);
-                    Log.e(TAG, "What it's adding to the list" + car.getRegistration());
 
                 }
 
