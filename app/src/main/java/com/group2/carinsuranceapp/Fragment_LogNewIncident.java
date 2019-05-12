@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,9 +52,7 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
     private ImageView imView2;
     private ImageView imView3;
     private ImageView imView4;
-    private static final int NUMER_OF_PHOTOS_POSSIBLE = 4;
-    private int photoCounter = 0;
-    List<String> photoFilePathsList = new ArrayList<String>(NUMER_OF_PHOTOS_POSSIBLE);
+
 
 
     @Nullable
@@ -155,6 +154,8 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
         @Override
         public void onClick(View v) {
 
+            loggedInMainActivity.resetPhotoCounter();
+
         }
     };
 
@@ -162,27 +163,6 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
         @Override
         public void onClick(View v) {
             loggedInMainActivity.takePicture();
-
-
-            switch (photoCounter){
-                case 0:{
-                    imView1.setVisibility(View.VISIBLE);
-                    loggedInMainActivity.loadImageFromFile(loggedInMainActivity.currentPathToFile,R.id.incident_picture_1);
-                    photoFilePathsList.add(loggedInMainActivity.currentPathToFile);
-                    return;
-                }
-                case 1:{
-                    return;
-                }
-                case 2:{
-                    return;
-                }
-                case 3:{
-                    return;
-                }
-            }
-
-
         }
     };
 

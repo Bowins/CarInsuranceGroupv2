@@ -43,6 +43,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -57,12 +58,17 @@ public class LoggedInMainActivity extends AppCompatActivity
     Geocoder geocoder;
     List<Address> addresses;
     String currentAddress;
-    File photoFile;
-    protected String currentPathToFile;
+
 
     public String getCurrentAddress() {
         return this.currentAddress;
     }
+
+    File photoFile;
+    protected String currentPathToFile;
+    protected int photoCounter = 0;
+    private static final int NUMER_OF_PHOTOS_POSSIBLE = 4;
+    List<String> photoFilePathsList = new ArrayList<String>(NUMER_OF_PHOTOS_POSSIBLE);
 
 
     @Override
@@ -278,6 +284,7 @@ public class LoggedInMainActivity extends AppCompatActivity
                             photoFile);
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,photoURI);
                     startActivityForResult(takePictureIntent,0);
+
                 }
             }
 
@@ -324,15 +331,34 @@ public class LoggedInMainActivity extends AppCompatActivity
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
-            if(requestCode == 0){
-            }
+            if(photoCounter <=4) {
+                photoFilePathsList.add(currentPathToFile);
+                if (requestCode == 0) {
+                    switch (photoCounter) {
+                        case 0: {
+                            loadImageFromFile(currentPathToFile, R.id.incident_picture_1);
 
+                            return;
+                        }
+                        case 1: {
+                            return;
+                        }
+                        case 2: {
+                            return;
+                        }
+                        case 3: {
+                            return;
+                        }
+                    }
+                }
+            }
 
         }
     }
 
     protected void loadImageFromFile(String filePath, int viewID) {
         ImageView im = findViewById(viewID);
+        Log.d("IN LOAD FROM",String.valueOf(viewID));
         im.setVisibility(View.VISIBLE);
 
         int targetW = im.getWidth();
@@ -354,5 +380,9 @@ public class LoggedInMainActivity extends AppCompatActivity
         Bitmap bitmap = BitmapFactory.decodeFile(filePath,bmOptions);
         im.setImageBitmap(bitmap);
 
+    }
+
+    public  void resetPhotoCounter(){
+        photoCounter = 0;
     }
 }
