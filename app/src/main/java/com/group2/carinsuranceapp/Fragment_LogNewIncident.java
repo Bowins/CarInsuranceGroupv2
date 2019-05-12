@@ -142,9 +142,28 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
         map = googleMap;
 
         //put marker on current location
+        if(loggedInMainActivity.getLatlngFromMapFragment() != null){
+            map.addMarker(new MarkerOptions().position(loggedInMainActivity.getLatlngFromMapFragment()).title("Position you chose"));
+            map.moveCamera(CameraUpdateFactory.zoomTo(13.0f));
+            map.moveCamera(CameraUpdateFactory.newLatLng(loggedInMainActivity.getLatlngFromMapFragment()));
+            try {
+                loggedInMainActivity.updateAddress(loggedInMainActivity.getLatlngFromMapFragment());
+                currentAddress = loggedInMainActivity.currentAddress;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
         map.addMarker(new MarkerOptions().position(currentLocationLatLang).title("You are here"));
-        map.moveCamera(CameraUpdateFactory.zoomTo(13.0f));
-        map.moveCamera(CameraUpdateFactory.newLatLng(currentLocationLatLang));
+            map.moveCamera(CameraUpdateFactory.zoomTo(13.0f));
+            map.moveCamera(CameraUpdateFactory.newLatLng(currentLocationLatLang));
+            try {
+                loggedInMainActivity.updateAddress(loggedInMainActivity.getLatlngFromMapFragment());
+                currentAddress = loggedInMainActivity.currentAddress;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
 
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
@@ -207,7 +226,7 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
     public void addressManual(){
         mapView.setVisibility(View.INVISIBLE);
         incidentLocationAsCurrentLocation.setVisibility(View.INVISIBLE);
-        incidentLocationAddress.setVisibility(View.VISIBLE);
+
         incidentLocationAddress.setVisibility(View.VISIBLE);
         incidentLocationCountry.setVisibility(View.VISIBLE);
         incidentLocationPostCode.setVisibility(View.VISIBLE);
@@ -218,7 +237,7 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
         mapView.setVisibility(View.VISIBLE);
         incidentLocationAsCurrentLocation.setVisibility(View.VISIBLE);
 
-        incidentLocationAddress.setVisibility(View.INVISIBLE);
+
         incidentLocationAddress.setVisibility(View.INVISIBLE);
         incidentLocationCountry.setVisibility(View.INVISIBLE);
         incidentLocationPostCode.setVisibility(View.INVISIBLE);
