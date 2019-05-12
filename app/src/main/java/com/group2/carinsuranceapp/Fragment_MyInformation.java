@@ -30,10 +30,8 @@ public class Fragment_MyInformation extends Fragment {
     private Button editButton;
 
     // Firebase stuff
-
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference myRef;
     private String userID;
 
