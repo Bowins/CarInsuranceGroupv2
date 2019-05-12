@@ -23,6 +23,26 @@ public class UserData {
         this.gender = gender;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }

@@ -30,7 +30,6 @@ public class Fragment_Dashboard extends Fragment implements View.OnClickListener
     private Button btnChangePass, btnLogout;
     private RelativeLayout activity_dashboard;
     private Button btnDatabase;
-
     private FirebaseAuth auth;
 
 

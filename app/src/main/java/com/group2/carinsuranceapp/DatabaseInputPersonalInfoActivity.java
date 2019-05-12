@@ -18,12 +18,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.group2.databaseclasses.UserData;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 public class DatabaseInputPersonalInfoActivity extends AppCompatActivity {
 
     private EditText firstNameField;
@@ -96,12 +90,11 @@ public class DatabaseInputPersonalInfoActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Adding data was unsuccessful", Toast.LENGTH_LONG);
 
                     }
+                } else {
+
+                    Toast.makeText(getApplicationContext(), "Saving your data was unsuccessful", Toast.LENGTH_LONG);
+
                 }
-
-
-
-
-
 
             }
         });

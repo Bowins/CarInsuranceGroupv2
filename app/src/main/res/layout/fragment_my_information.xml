@@ -21,8 +21,7 @@
         android:id="@+id/text_first_name_myinfo_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="First name"
-        />
+        android:text="First name:" />
 
     <TextView
     android:id="@+id/text_first_name_myinfo_changable"
@@ -34,28 +33,29 @@
         android:id="@+id/text_last_name_myinfo_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Last name"
-        />
+        android:text="Last name:" />
     <TextView
         android:id="@+id/text_last_name_myinfo_changeable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
+
     <TextView
         android:id="@+id/text_birthdate_myinfo_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Birth date"/>
+        android:text="Birth date:" />
     <TextView
         android:id="@+id/text_birthdate_myinfo_changeable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
+
     <TextView
         android:id="@+id/text_sex_myinfo_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sex"/>
+        android:text="Sex:" />
     <TextView
         android:id="@+id/text_sex_myinfo_changeable"
         android:layout_width="match_parent"
