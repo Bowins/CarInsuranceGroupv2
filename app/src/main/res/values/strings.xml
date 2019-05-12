@@ -62,7 +62,10 @@
     <string name="button_take_picture">Take picture</string>
     <string name="text_incident_car">Choose car</string>
     <string name="button_delete_pictures">Delete pictures</string>
-
+    <string name="edit_personal_info">Edit information</string>
+    <string name="text_first_name_edit_label">First name</string>
+    <string name="text_last_name_edit_label">Last name</string>
+    <string name="button_edit_personal_submit">Submit changes</string>
 
 
 </resources>

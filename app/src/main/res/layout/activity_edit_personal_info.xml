@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center|top">
+
+    <TextView
+        android:id="@+id/text_edit_personal_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_personal_info"
+        android:textSize="40dp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/text_first_name_edit_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_first_name_edit_label"
+        android:textSize="20dp"
+        />
+
+    <EditText
+        android:id="@+id/edit_first_name_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+    android:id="@+id/text_last_name_edit_label"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/text_last_name_edit_label"
+    android:textSize="20dp"
+    />
+
+    <EditText
+        android:id="@+id/edit_last_name_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+    <TextView
+        android:id="@+id/text_birth_date_edit_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_enter_date_of_birth"
+        android:textSize="20dp"
+        />
+
+    <EditText
+        android:id="@+id/edit_birth_date_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <RadioGroup
+        android:id="@+id/edit_sex_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/radio_edit_female"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_female" />
+
+        <RadioButton
+            android:id="@+id/radio_edit_male"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_male" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/button_edit_personal_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_edit_personal_submit" />
+
+</LinearLayout>

@@ -36,7 +36,7 @@ public class Fragment_Dashboard extends Fragment implements View.OnClickListener
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_dashboard,null);
+        return inflater.inflate(R.layout.fragment_dashboard,null);
 
 
 
