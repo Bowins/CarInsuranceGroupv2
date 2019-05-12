@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class Fragment_MyInsuranceInfo extends Fragment {
@@ -18,6 +19,7 @@ public class Fragment_MyInsuranceInfo extends Fragment {
     private TextView carModel;
     private TextView carRegNum;
     private Button addCar;
+    private ListView carList;
 
     @Nullable
     @Override
@@ -33,7 +35,7 @@ public class Fragment_MyInsuranceInfo extends Fragment {
         carMake = view.findViewById(R.id.text_car_make_insurance_info_changable);
         carModel= view.findViewById(R.id.text_car_model_insurance_info_changeable);
         carRegNum= view.findViewById(R.id.text_car_reg_num_insurance_info_changeable);
-
+        carList = view.findViewById(R.id.list_of_cars);
 
 
 
