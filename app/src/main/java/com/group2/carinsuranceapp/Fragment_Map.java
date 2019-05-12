@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -32,6 +33,8 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback {
     private TextView incidentLocationAsCurrentLocation;
     private TextView addressView;
 
+    private ToggleButton button;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +53,17 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState);
 
         addressView = view.findViewById(R.id.text_address_in_map_fragment);
+        button = view.findViewById(R.id.button_use_address_in_new_incident);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            if(button.isChecked()){
+                loggedInMainActivity.setUseAddressFromMapFragment(false);
+            }else{
+                loggedInMainActivity.setUseAddressFromMapFragment(true);
+            }
+            }
+        });
 
         location = new Location("");
         mMapView = view.findViewById(R.id.mapView);
@@ -66,6 +80,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback {
 
 
 
+
     }
 
     @Override
@@ -74,25 +89,46 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback {
         map.addMarker(new MarkerOptions().position(currentLocationLatLng).title("You are here"));
         map.moveCamera(CameraUpdateFactory.zoomTo(8.0f));
         map.moveCamera(CameraUpdateFactory.newLatLng(currentLocationLatLng));
-        addressView.setText(currentAddress);
+        //set variables in LoggedInMain
+        loggedInMainActivity.setLatlngFromMapFragment(currentLocationLatLng);
+        try {
+            loggedInMainActivity.updateAddressFromMapFragment(currentLocationLatLng);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //set address view to selected address
+        addressView.setText(loggedInMainActivity.getAddressFromMapFragment());
 
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
                 map.clear();
                 map.addMarker(new MarkerOptions().position(latLng).title("You are here"));
+
                 currentLocationLatLng = latLng;
+
+                //set variables in LoggedInMain
                 loggedInMainActivity.setLatlngFromMapFragment(latLng);
+                try {
+                    loggedInMainActivity.updateAddressFromMapFragment(latLng);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //set address view to selected address
+                addressView.setText(loggedInMainActivity.getAddressFromMapFragment());
+            }
+        });
+
+    }
+}
+
+/*loggedInMainActivity.setLatlngFromMapFragment(latLng);
                 try {
                     loggedInMainActivity.updateAddress(latLng);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 currentAddress = loggedInMainActivity.getCurrentAddress();
-                addressView.setText(currentAddress);
-
-            }
-        });
-
-    }
-}
+                addressView.setText(currentAddress);*/

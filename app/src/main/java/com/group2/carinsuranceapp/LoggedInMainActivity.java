@@ -60,24 +60,10 @@ public class LoggedInMainActivity extends AppCompatActivity
     Geocoder geocoder;
     List<Address> addresses;
     String currentAddress;
-
-    public LatLng getLatlngFromMapFragment() {
-        return latlngFromMapFragment;
-    }
-
-    public void setLatlngFromMapFragment(LatLng latlngFromMapFragment) {
-        this.latlngFromMapFragment = latlngFromMapFragment;
-    }
-
+    String addressFromMapFragment = null;
+    boolean useAddressFromMapFragment = false;
     protected LatLng latlngFromMapFragment = null;
 
-    public String getCurrentAddress() {
-        return this.currentAddress;
-    }
-
-    public void setCurrentAddress(String address) {
-         this.currentAddress = address;
-    }
 
     File photoFile;
     protected String currentPathToFile;
@@ -269,7 +255,35 @@ public class LoggedInMainActivity extends AppCompatActivity
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
+    public String getCurrentAddress() {
+        return this.currentAddress;
+    }
 
+    public void setCurrentAddress(String address) {
+        this.currentAddress = address;
+    }
+//-----------------map fragment-----------------------------
+    public LatLng getLatlngFromMapFragment() {
+    return latlngFromMapFragment;
+    }
+
+    public void setLatlngFromMapFragment(LatLng latlngFromMapFragment) {
+        this.latlngFromMapFragment = latlngFromMapFragment;
+    }
+    protected void updateAddressFromMapFragment(LatLng latLng) throws IOException {
+        addresses = geocoder.getFromLocation(latLng.latitude,latLng.longitude,1);
+        String address = addresses.get(0).getAddressLine(0);
+        addressFromMapFragment = address;
+    }
+    public String getAddressFromMapFragment(){
+        return this.addressFromMapFragment;
+    }
+    public void setUseAddressFromMapFragment(boolean set){
+        this.useAddressFromMapFragment = set;
+    }
+    public boolean getUseAddressFromMapFrament(){
+        return this.useAddressFromMapFragment;
+    }
 
     //Picture handling------------------------------------------------------------------------------
     public void takePicture() {
