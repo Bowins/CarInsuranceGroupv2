@@ -3,14 +3,16 @@ package com.group2.carinsuranceapp;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.ResultReceiver;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -18,6 +20,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -27,17 +31,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -51,6 +57,8 @@ public class LoggedInMainActivity extends AppCompatActivity
     Geocoder geocoder;
     List<Address> addresses;
     String currentAddress;
+    File photoFile;
+    protected String currentPathToFile;
 
     public String getCurrentAddress() {
         return this.currentAddress;
@@ -236,21 +244,115 @@ public class LoggedInMainActivity extends AppCompatActivity
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
-            case MY_PERMISSION_REQUEST_LOCATION:{
-                if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
 
-                }else {
 
-                }
+    public void takePicture() {
+
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.CAMERA)){
+
+            }else{
+                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA},1);
+            }
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+
+            }else{
+                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},2);
             }
         }
+        else{
+
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+            if(takePictureIntent.resolveActivity(getPackageManager())!= null){
+                photoFile = null;
+                try {
+                    photoFile = createFile();
+                    Log.d("HEYYYYY", photoFile.getAbsolutePath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if(photoFile != null){
+                    Uri photoURI = FileProvider.getUriForFile(LoggedInMainActivity.this,
+                            "com.group2.carinsuranceapp.fileprovider",
+                            photoFile);
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,photoURI);
+                    startActivityForResult(takePictureIntent,0);
+                }
+            }
+
+
+        }
+
 
     }
 
+    protected File createFile() throws IOException{
+        String timestamp = new SimpleDateFormat("yyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_"+timestamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageFileName,".jpg",storageDir);
+        currentPathToFile = image.getAbsolutePath();
+        return image;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode){
+            case 1:{
+                if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+                }else{
+
+                }
+                return;
+            }
+            case 2:{
+                if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+                }else{
+
+                }
+                return;
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            if(requestCode == 0){
+            }
 
 
+        }
+    }
+
+    protected void loadImageFromFile(String filePath, int viewID) {
+        ImageView im = findViewById(viewID);
+        im.setVisibility(View.VISIBLE);
+
+        int targetW = im.getWidth();
+        int targetH = im.getHeight();
+
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(filePath,bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        int scaleFactor = Math.min(photoW/targetW,photoH/targetH);
+
+
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(filePath,bmOptions);
+        im.setImageBitmap(bitmap);
+
+    }
 }
