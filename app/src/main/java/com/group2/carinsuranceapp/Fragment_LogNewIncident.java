@@ -147,6 +147,7 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
             map.moveCamera(CameraUpdateFactory.zoomTo(13.0f));
             map.moveCamera(CameraUpdateFactory.newLatLng(loggedInMainActivity.getLatlngFromMapFragment()));
             incidentLocationAsCurrentLocation.setText(loggedInMainActivity.getAddressFromMapFragment());
+            currentLocationLatLang = loggedInMainActivity.getLatlngFromMapFragment();
         }else{
         map.addMarker(new MarkerOptions().position(currentLocationLatLang).title("You are here"));
             map.moveCamera(CameraUpdateFactory.zoomTo(13.0f));
@@ -191,7 +192,7 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
     View.OnClickListener submitListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+                    //TODO Use currentLocationLatLng or currentAddress for saving in database
             loggedInMainActivity.resetPhotoCounter();
 
         }

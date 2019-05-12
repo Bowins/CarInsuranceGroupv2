@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -58,9 +59,11 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
             if(button.isChecked()){
-                loggedInMainActivity.setUseAddressFromMapFragment(false);
-            }else{
                 loggedInMainActivity.setUseAddressFromMapFragment(true);
+                Toast.makeText(getActivity(),"Will use this location",Toast.LENGTH_LONG).show();
+            }else{
+                loggedInMainActivity.setUseAddressFromMapFragment(false);
+                Toast.makeText(getActivity(),"Will not use this location",Toast.LENGTH_LONG).show();
             }
             }
         });
