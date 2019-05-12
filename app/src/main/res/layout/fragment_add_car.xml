@@ -12,6 +12,31 @@
         android:text="@string/add_car"
         android:textSize="50sp"
         android:textAlignment="center"/>
+
+    <EditText
+        android:id="@+id/carRegistrationLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/text_input_car_registration_num" />
+
+    <EditText
+        android:id="@+id/carMakeLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/text_input_car_model" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/text_input_car_make" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

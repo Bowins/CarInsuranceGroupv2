@@ -53,8 +53,6 @@
     <string name="new_incident_switch">Use current location or find on map</string>
 
 
-
-
     <string name="service_not_available">Service not available</string>
     <string name="invalid_lat_long_used">invalid_lat_long_used</string>
     <string name="no_address_found">no_address_found</string>
@@ -64,5 +62,7 @@
     <string name="button_take_picture">Take picture</string>
     <string name="text_incident_car">Choose car</string>
     <string name="button_delete_pictures">Delete pictures</string>
+
+
 
 </resources>
