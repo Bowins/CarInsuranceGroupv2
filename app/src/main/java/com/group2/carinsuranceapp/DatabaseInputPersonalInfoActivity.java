@@ -28,7 +28,7 @@ public class DatabaseInputPersonalInfoActivity extends AppCompatActivity {
 
     // database variables
     private static final String TAG = "AddToDatabase";
-
+    FirebaseDatabase mFirebaseDatabase;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,11 +37,8 @@ public class DatabaseInputPersonalInfoActivity extends AppCompatActivity {
 
         // initialise database variables
         //mAuth = FirebaseAuth.getInstance();
-        //mFirebaseDatabase = FirebaseDatabase.getInstance();
-        //myRef = mFirebaseDatabase.getReference();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
 
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
         /*
         Alright so this right here is the line that is the line gives me errors
         Every time I try to reference the database it gives me a weird error and it crashes
@@ -49,9 +46,8 @@ public class DatabaseInputPersonalInfoActivity extends AppCompatActivity {
         message: message > Hello, World!
          */
 
-
-        //DatabaseReference myRef = database.getReference("message");
-        //myRef.setValue("Hello, World!");
+        DatabaseReference myRef = mFirebaseDatabase.getReference("message");
+        myRef.setValue("Hello, World!");
 
         //widgets
         firstNameField = findViewById(R.id.field_enter_forename);
