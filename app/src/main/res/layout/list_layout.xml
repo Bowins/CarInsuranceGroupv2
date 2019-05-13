@@ -10,25 +10,34 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        tools:layout_editor_absoluteY="8dp"
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/listHeaderReference"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="5sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:paddingLeft="8sp"
             android:text="TextView"
-            android:textSize="20sp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/sublistModel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="5sp"
+            android:paddingLeft="8sp"
             android:text="TextView" />
 
         <TextView
             android:id="@+id/sublistMake"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="5sp"
+            android:paddingLeft="8sp"
             android:text="TextView" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

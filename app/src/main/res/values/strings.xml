@@ -52,6 +52,8 @@
     <string name="button_edit">Edit</string>
     <string name="new_incident_switch">Use current location from</string>
 
+    <!-- Disclaimer -->
+    <string name="disclaimer_privacy">By submitting your data, you are agreeing with Crashalytics\' policies of data security and protection</string>
 
     <string name="service_not_available">Service not available</string>
     <string name="invalid_lat_long_used">invalid_lat_long_used</string>
