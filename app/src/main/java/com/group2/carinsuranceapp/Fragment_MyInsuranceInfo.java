@@ -101,10 +101,10 @@ public class Fragment_MyInsuranceInfo extends Fragment {
                     listofcars.add(car);
 
                 }
-
-                CarsList adapter = new CarsList(getActivity(), listofcars);
-                carList.setAdapter(adapter);
-
+                try {
+                    CarsList adapter = new CarsList(getActivity(), listofcars);
+                    carList.setAdapter(adapter);
+                } catch (Exception e) { e.printStackTrace(); }
             }
 
             @Override

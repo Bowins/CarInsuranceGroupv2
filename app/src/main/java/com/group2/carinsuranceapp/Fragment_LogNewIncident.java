@@ -24,6 +24,11 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.group2.databaseclasses.UserCar;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,6 +62,13 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
     private ImageView imView3;
     private ImageView imView4;
 
+    //Database stuff
+    DatabaseReference databaseCars;
+    private FirebaseAuth mAuth;
+    private String userID;
+    FirebaseUser firebaseUser;
+    private static final String TAG = "DEBUGGING - ";
+    List<UserCar> listofcars;
 
 
     @Nullable
@@ -104,6 +116,10 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
         loggedInMainActivity.getLastLocation();
 
         carListView = view.findViewById(R.id.incident_car_list_view);
+        //Initialise data
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        userID = firebaseUser.getUid();
+        databaseCars = FirebaseDatabase.getInstance().getReference("Car/" + userID);
 
 
 
@@ -124,7 +140,7 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
 
         viewsSetup();
 
-        if(Build.VERSION.SDK_INT >= 23){
+        if(Build.VERSION.SDK_INT >= 23) {
             requestPermissions(new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},3);
         }
 
