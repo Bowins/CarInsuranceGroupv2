@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -30,9 +31,7 @@ import java.util.List;
 
 public class Fragment_MyInsuranceInfo extends Fragment {
 
-    private TextView carMake;
-    private TextView carModel;
-    private TextView carRegNum;
+
     private Button addCar;
     private ListView carList;
 
@@ -57,9 +56,6 @@ public class Fragment_MyInsuranceInfo extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //initialise layout widgets and database stuff
-        carMake = view.findViewById(R.id.text_car_make_insurance_info_changable);
-        carModel= view.findViewById(R.id.text_car_model_insurance_info_changeable);
-        carRegNum= view.findViewById(R.id.text_car_reg_num_insurance_info_changeable);
         carList = view.findViewById(R.id.list_of_cars);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         userID = firebaseUser.getUid();
@@ -68,6 +64,17 @@ public class Fragment_MyInsuranceInfo extends Fragment {
 
 
         listofcars = new ArrayList<>();
+
+        carList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                UserCar us = listofcars.get(i);
+                String lastPath = us.getRegistration();
+                FirebaseDatabase.getInstance().getReference("Car/" + userID + "/" + lastPath).removeValue();
+                return false;
+            }
+        });
 
 
         view.findViewById(R.id.b_add_car).setOnClickListener(new View.OnClickListener() {
@@ -83,10 +90,12 @@ public class Fragment_MyInsuranceInfo extends Fragment {
             }
         });
 
+
         databaseCars.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.e(TAG, "This exists  " + dataSnapshot.getChildrenCount());
+                listofcars.removeAll(listofcars);
                 for (DataSnapshot sn: dataSnapshot.getChildren()) {
                     UserCar car = sn.getValue(UserCar.class);
                     listofcars.add(car);
