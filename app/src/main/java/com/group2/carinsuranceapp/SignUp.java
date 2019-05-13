@@ -1,6 +1,9 @@
 package com.group2.carinsuranceapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -49,6 +52,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
         //init Firebase
         auth = FirebaseAuth.getInstance();
+        if (isNetworkAvailable()==false ){
+            Toast.makeText(this, "User is not connected to the network", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -91,5 +97,12 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                         }
                     }
                 });
+    }
+
+    private boolean isNetworkAvailable(){
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return (activeNetworkInfo != null) && (activeNetworkInfo.isConnected());
     }
 }

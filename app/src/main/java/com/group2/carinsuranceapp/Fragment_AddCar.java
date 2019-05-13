@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.group2.databaseclasses.UserCar;
 
+import java.util.regex.Pattern;
+
 public class Fragment_AddCar extends Fragment {
 
     // View fields
@@ -66,8 +68,12 @@ public class Fragment_AddCar extends Fragment {
                     String mod = model.getText().toString();
                     String mak = make.getText().toString();
 
+                if (reg.matches("^[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}$")) {
+
+
                     UserCar car = new UserCar(reg, mod, mak);
                     Log.e(TAG, "All input is checked and not empty: Reg - " + reg + ", Mod - " + mod + ", Mak - " + mak);
+
 
                     try {
 
@@ -87,6 +93,7 @@ public class Fragment_AddCar extends Fragment {
 
                     }
 
+                }
 
                 }
             }
