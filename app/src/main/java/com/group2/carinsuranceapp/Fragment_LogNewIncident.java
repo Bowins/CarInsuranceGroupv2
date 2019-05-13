@@ -62,6 +62,16 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
     private ImageView imView3;
     private ImageView imView4;
 
+    /* ===========================================
+    Global variables to be pushed into the database
+     */
+    String dateIn; //It's string but will be stored in x/x/x format because of the field so nw
+    String timeIn;
+    String descriptionIn;
+    float latIn;
+    float lonIn;
+
+
     //Database stuff
     DatabaseReference databaseCars;
     private FirebaseAuth mAuth;
