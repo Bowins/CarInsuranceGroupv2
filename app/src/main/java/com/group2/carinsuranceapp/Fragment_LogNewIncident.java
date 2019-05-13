@@ -1,6 +1,8 @@
 package com.group2.carinsuranceapp;
 
 import android.Manifest;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,6 +31,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.group2.databaseclasses.UserCar;
+import com.group2.databaseclasses.UserIncident;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,6 +58,8 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
     private Button takePictureButton;
     private ListView carListView;
     private Button deletePicturesButton;
+    private String manualAddress;
+    private boolean addressFromMap = true;
 
     //taking photos fields
     private ImageView imView1;
@@ -204,13 +209,47 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
     }
 
 
+    public void chageCurrentLocationLatLngToManual(){
+       String addressLine  = incidentLocationAddress.getText().toString();
+       String country =incidentLocationCountry.getText().toString();
+       String postCode =incidentLocationPostCode.getText().toString();
+       String city =incidentLocationTownCity.getText().toString();
+
+       StringBuffer buffer = new StringBuffer();
+       buffer.append("" + addressLine +", " + city + " " + postCode.toUpperCase() + ", " + country);
+       String fullAddress = buffer.toString();
+
+        Geocoder geocoder = new Geocoder(getContext());
+        List<Address> address;
+        LatLng latl = null;
+
+        try {
+            address = geocoder.getFromLocationName(fullAddress,1);
+            if (address != null){
+                Address location = address.get(0);
+                latl = new LatLng(location.getLatitude(),location.getLongitude());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(latl != null){
+            currentLocationLatLang = latl;
+        }
+
+
+    }
+
     //on click listeners------------------------------------------------------------------------------
     View.OnClickListener switchListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if(aSwitch.isChecked()){
+                addressFromMap = true;
                 addressFromMap();
             }else{
+                addressFromMap = false;
                 addressManual();
             }
         }
@@ -219,9 +258,16 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
     View.OnClickListener submitListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-                    //TODO Use currentLocationLatLng or currentAddress for saving in database
-            loggedInMainActivity.resetPhotoCounter();
 
+            if(addressFromMap == false){
+                chageCurrentLocationLatLngToManual();
+                Log.d("Location", currentLocationLatLang.latitude + " " + currentLocationLatLang.longitude);
+            }
+
+
+
+
+            loggedInMainActivity.resetPhotoCounter();
         }
     };
 
