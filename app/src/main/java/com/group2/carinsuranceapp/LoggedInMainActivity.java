@@ -1,6 +1,7 @@
 package com.group2.carinsuranceapp;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -8,6 +9,8 @@ import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -106,6 +109,10 @@ public class LoggedInMainActivity extends AppCompatActivity
 
             }
         });
+
+        if (isNetworkAvailable()==false ){
+            Toast.makeText(this, "User is not connected to the network", Toast.LENGTH_SHORT).show();
+        }
 
         //Menu
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -464,5 +471,12 @@ public class LoggedInMainActivity extends AppCompatActivity
         }
     }
 
+
+    private boolean isNetworkAvailable(){
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return (activeNetworkInfo != null) && (activeNetworkInfo.isConnected());
+    }
 
 }
