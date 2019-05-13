@@ -80,7 +80,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback {
         loggedInMainActivity = (LoggedInMainActivity) getActivity();
         location = loggedInMainActivity.lastKnownLocation;
         currentLocationLatLng = new LatLng(location.getLatitude(),location.getLongitude());
-
+        loggedInMainActivity.setUseAddressFromMapFragment(false);
 
 
 

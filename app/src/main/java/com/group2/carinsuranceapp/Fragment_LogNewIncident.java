@@ -101,6 +101,7 @@ public class Fragment_LogNewIncident extends Fragment implements OnMapReadyCallb
         aSwitch.setOnClickListener(switchListener);
 
         loggedInMainActivity = (LoggedInMainActivity) getActivity();
+        loggedInMainActivity.getLastLocation();
 
         carListView = view.findViewById(R.id.incident_car_list_view);
 

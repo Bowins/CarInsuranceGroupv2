@@ -29,19 +29,26 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".EditPersonalInformationActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" /> <!-- hides keyboard on load -->
         <activity
             android:name=".SignUp"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" /> <!-- hides keyboard on load -->
         <activity android:name=".ForgotPassword"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/><!-- hides keyboard on load -->
         <activity android:name=".DatabaseInputInsuranceInfoActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/><!-- hides keyboard on load -->
         <activity android:name=".DatabaseInputPersonalInfoActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/><!-- hides keyboard on load -->
-        <activity android:name=".LoggedInMainActivity" />
+        <activity android:name=".LoggedInMainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"> <!-- hides keyboard on load -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
