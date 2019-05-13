@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.group2.databaseclasses.UserCar;
 import com.group2.databaseclasses.UserData;
 
@@ -57,7 +58,7 @@ public class Fragment_MyInformation extends Fragment {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         userID = firebaseUser.getUid();
         //userID = mAuth.getCurrentUser().getUid();
-        myRef = mFirebaseDatabase.getReference();
+        myRef = mFirebaseDatabase.getReference("User");
 
 
         //Views
@@ -76,14 +77,32 @@ public class Fragment_MyInformation extends Fragment {
             }
         });
 
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                UserData udata = dataSnapshot.child(userID).getValue(UserData.class);
+
+                name.setText(udata.getFirstName());
+                surname.setText(udata.getLastName());
+                birthdate.setText(udata.getDob());
+                sex.setText(udata.getGender());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        /*
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
                 /*
                 on child added appends the next child added (User)
-                 */
+
                 UserData udata = dataSnapshot.child(userID).getValue(UserData.class);
 
                 name.setText(udata.getFirstName());
@@ -113,7 +132,6 @@ public class Fragment_MyInformation extends Fragment {
 
             }
         });
-
-
+*/
     }
 }
