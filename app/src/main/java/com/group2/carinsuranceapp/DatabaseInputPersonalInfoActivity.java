@@ -34,6 +34,7 @@ public class DatabaseInputPersonalInfoActivity extends AppCompatActivity {
     FirebaseDatabase mFirebaseDatabase;
     FirebaseAuth mAuth;
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_database_personal_info);
@@ -49,7 +50,6 @@ public class DatabaseInputPersonalInfoActivity extends AppCompatActivity {
         surnameField = findViewById(R.id.field_enter_surname);
         dateOfBirthField = findViewById(R.id.field_enter_date_of_birth);
         sexRadioButton = findViewById(R.id.radio_button_group_sex);
-        int selectedId = sexRadioButton.getCheckedRadioButtonId();
         selectedSex = (RadioButton)findViewById(R.id.radio_button_female);
 
 
@@ -71,6 +71,7 @@ public class DatabaseInputPersonalInfoActivity extends AppCompatActivity {
                     String email = userAuth.getEmail();
                     String ID = userAuth.getUid();
                     String gender = "Male";
+
                     if (selectedSex.isChecked()) {
                         gender = "Female";
                     }
@@ -115,11 +116,6 @@ public class DatabaseInputPersonalInfoActivity extends AppCompatActivity {
         else {
             empty = false;
         }
-
         return empty;
-
     }
-
-
-
 }

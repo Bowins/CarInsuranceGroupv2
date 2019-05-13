@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.group2.databaseclasses.UserCar;
 import com.group2.databaseclasses.UserData;
 
 public class Fragment_MyInformation extends Fragment {
@@ -31,7 +34,12 @@ public class Fragment_MyInformation extends Fragment {
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth mAuth;
     private DatabaseReference myRef;
+    private DatabaseReference myRef2;
+
     private String userID;
+    FirebaseUser firebaseUser;
+    private static final String TAG = "DEBUGGING - ";
+
 
     @Nullable
     @Override
@@ -46,8 +54,10 @@ public class Fragment_MyInformation extends Fragment {
         // initialise database variables
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        myRef = mFirebaseDatabase.getReference("User");
-        userID = mAuth.getCurrentUser().getUid();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        userID = firebaseUser.getUid();
+        //userID = mAuth.getCurrentUser().getUid();
+        myRef = mFirebaseDatabase.getReference();
 
 
         //Views
@@ -67,13 +77,15 @@ public class Fragment_MyInformation extends Fragment {
         });
 
 
-        //Put database info in views
-        //String nameF = myRef.child(userID).child("gender")
-
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                UserData udata = dataSnapshot.getValue(UserData.class);
+
+                /*
+                on child added appends the next child added (User)
+                 */
+                UserData udata = dataSnapshot.child(userID).getValue(UserData.class);
+
                 name.setText(udata.getFirstName());
                 surname.setText(udata.getLastName());
                 birthdate.setText(udata.getDob());

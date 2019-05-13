@@ -41,10 +41,6 @@ public class Fragment_MyInsuranceInfo extends Fragment {
     private String userID;
     FirebaseUser firebaseUser;
     private static final String TAG = "DEBUGGING - ";
-
-
-
-
     List<UserCar> listofcars;
 
 
@@ -52,7 +48,6 @@ public class Fragment_MyInsuranceInfo extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_my_insurance_info,null);
-
 
 
     }
@@ -73,7 +68,6 @@ public class Fragment_MyInsuranceInfo extends Fragment {
 
 
         listofcars = new ArrayList<>();
-
 
 
         view.findViewById(R.id.b_add_car).setOnClickListener(new View.OnClickListener() {
