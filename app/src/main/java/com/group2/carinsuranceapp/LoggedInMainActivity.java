@@ -27,6 +27,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,7 +42,10 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -398,6 +402,7 @@ public class LoggedInMainActivity extends AppCompatActivity
         bmOptions.inPurgeable = true;
 
         Bitmap bitmap = BitmapFactory.decodeFile(filePath,bmOptions);
+        encodeBitmapAndSaveToFirebase(bitmap);
         im.setClickable(true);
         im.setImageBitmap(bitmap);
 
@@ -407,6 +412,19 @@ public class LoggedInMainActivity extends AppCompatActivity
         photoCounter = 0;
     }
 
+
+    /*
+    This function saves the photos to the database
+     */
+    public void encodeBitmapAndSaveToFirebase(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        String imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+        DatabaseReference ref = FirebaseDatabase.getInstance()
+                .getReference().child("Images")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        ref.setValue(imageEncoded);
+    }
 
     public void deletePhotos() {
         ImageView im = findViewById(R.id.incident_picture_1);
